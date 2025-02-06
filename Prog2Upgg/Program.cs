@@ -7,6 +7,7 @@ SlowMoney isApa = new SlowMoney("IsApa", 0, 1, 2, 4);
 Monkey stålApa = new Monkey("StålApa", 8, 2, 10);
 
 
+
 int amountOfRounds = 5;
 int money = 10;
 

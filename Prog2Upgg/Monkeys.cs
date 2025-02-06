@@ -1,3 +1,4 @@
+using System.Security.Cryptography.X509Certificates;
 using Balloons;
 
 namespace Monkeys
@@ -49,6 +50,16 @@ namespace Monkeys
             this.attackAmount = attackAmount;
         }
 
+
+        public int Attackagain(){
+            int totalDamage = 0;
+
+            for(int i = 0; i < attackAmount; i++){
+                totalDamage += attack(); 
+            }
+
+            return totalDamage;
+        }
     }
 
     class SlowMoney : EffMonkey
@@ -59,7 +70,7 @@ namespace Monkeys
             slowAmount = Slow;
         }
 
-        private int SlowBloon()
+        public int SlowBloon()
         {
             return slowAmount;
         }
