@@ -28,6 +28,7 @@ namespace Monkeys
             Console.WriteLine($"Type: {Name}");
             Console.WriteLine($"Damage: {attackDamage}");
             Console.WriteLine($"Rounds between attacks: {attackSpeed}");
+            Console.WriteLine($"Cost: {Cost}");
         }
         public int attack()
         {
