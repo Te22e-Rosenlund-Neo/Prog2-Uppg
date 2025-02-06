@@ -10,6 +10,7 @@ namespace Monkeys
         private int attackDamage;
         private int attackSpeed;
         public int Cost;
+        public string type;
 
         public Monkey(string name, int AttackDamage, int AttackSpeed, int Cost)
         {
@@ -52,15 +53,15 @@ namespace Monkeys
 
     class SlowMoney : EffMonkey
     {
-        int SlowAmount;
+        int slowAmount;
         public SlowMoney(string name, int AttackDamage, int AttackSpeed, int Slow, int cost) : base(name, AttackDamage, AttackSpeed, cost)
         {
-            SlowAmount = Slow;
+            slowAmount = Slow;
         }
 
         private int SlowBloon()
         {
-            return SlowAmount;
+            return slowAmount;
         }
 
     }
