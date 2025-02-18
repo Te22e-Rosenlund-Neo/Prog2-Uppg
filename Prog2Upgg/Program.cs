@@ -1,7 +1,9 @@
 ﻿using Monkeys;
 using Balloons;
 using Rounds;
+using System.Text;
 
+Console.OutputEncoding = Encoding.UTF8;
 Monkey pilApa = new Monkey("Pilapa", 3, 1, 2);
 MultiAttMonkey kanon = new MultiAttMonkey("kanon", 1, 1, 3, 5);
 SlowMoney isApa = new SlowMoney("IsApa", 0, 1, 2, 4);
@@ -25,42 +27,55 @@ bool GameOn = true;
 while (GameOn)
 {
 
-    Console.WriteLine("Welcome to Monkeys Console Attack");
+
+    Console.WriteLine(@"Welcome to Monkeys Console Attack");
     Console.WriteLine("How many rounds will u take on?");
-
-    string response = "";
-    int x;
-
-    while (true)
-    {
-        Console.WriteLine("enter a number between 1 and 20");
-        response = Console.ReadLine() ?? "";
-
-        if (int.TryParse(response, out x))
-        {
-            if (Convert.ToInt32(response) > 0 && Convert.ToInt32(response) < 20)
-            {
-                break;
-            }
-        }
-    }
-
-    int amountOfRounds = Convert.ToInt32(response);
+    int amountOfRounds = Round.MakeRounds();
+    Console.WriteLine(amountOfRounds);
 
     List<Round> rounds = new();
-    for (int i = 0; i <= amountOfRounds; i++)
+    for (int i = 0; i < amountOfRounds; i++)
     {
-        rounds.Add(new Round(i + Random.Shared.Next(1, 5), i * 2, i, i, i - 1, i - 3, i - 4));
+        Round r = new Round(i+Random.Shared.Next(1,4), i*2, i, i, i-1, i-3, i-4);
     }
-
+    Console.ReadLine();
+    List<Monkey> MyMonkeys = new List<Monkey>(){
+        pilApa, pilApa, pilApa
+    };
     int currentround = 0;
-    while (currentround <= amountOfRounds)
+    while (currentround < amountOfRounds)
     {
+        Console.Clear();
+        List<Bloon> attackingBloons = new();
+        attackingBloons = GenerateBloons(rounds[currentround]);
+
+        while (true)
+        {
+            //opens shop
+            // Displays bloons plus duration
+            // choose who to attack with each monkey
+            // 
+
+            MyMonkeys.Add(ShopSystem());
+
+            Console.Clear();
+
+            Console.WriteLine(attackingBloons.Count);
+        
+            // foreach(Bloon b in attackingBloons){
+            //     b.DisplayBaseStats();
+            // }
+            Console.WriteLine("Your monkeys attack");
+
+
+
+            Console.ReadLine();
 
 
 
 
 
+        }
         currentround += 1;
     }
 }
@@ -71,15 +86,18 @@ Monkey ShopSystem()
 
     Console.Clear();
 
-    List<string> choices = new List<string>() { "1", "2", "3", "4" };
+    List<string> choices = new List<string>() { "1", "2", "3", "4", "5" };
+    Console.WriteLine(@"MONKEY - SHOP");
     Console.WriteLine("What monkey would u like?");
     Console.WriteLine($"Your Money: {money}");
-    foreach (Monkey monkey in AllMonkeys)
+    Console.WriteLine();
+
+    for (int i = 0; i < AllMonkeys.Count; i++)
     {
-        monkey.Showstats();
+        Console.WriteLine(i);
+        AllMonkeys[i].Showstats();
         Console.WriteLine("------------------------");
     }
-
     string answer;
     do
     {
@@ -93,5 +111,63 @@ Monkey ShopSystem()
 
     return chosen;
 }
+string answerChecker(List<string> Answers)
+{
+
+    string input;
+    do
+    {
+
+        Console.Write("Please type a valid argument");
+        input = Console.ReadLine() ?? "";
+    } while (!Answers.Contains(input));
+
+    return input;
+}
+
+void attack(Monkey attacker, Bloon defender)
+{
+    defender.health -= attacker.Attack();
+    Console.Clear();
+    defender.DisplayBaseStats();
+}
 
 
+
+List<Bloon> GenerateBloons(Round round)
+{
+    List<Bloon> bloons = new List<Bloon>();
+
+    for (int i = 0; i < round.redCount; i++)
+    {
+        Bloon RedBloon = new Bloon("Red", 1, 1, 2, "R");
+        bloons.Add(RedBloon);
+    }
+    for (int i = 0; i < round.yellowCount; i++)
+    {
+        Bloon YellowBloon = new Bloon("Yellow", 1, 2, 1, "Y");
+        bloons.Add(YellowBloon);
+    }
+    for (int i = 0; i < round.redCount; i++)
+    {
+        Bloon BlackBloon = new Bloon("Black", 3, 1, 4, "B");
+        bloons.Add(BlackBloon);
+    }
+    for (int i = 0; i < round.redCount; i++)
+    {
+        Bloon WhiteBloon = new Bloon("White", 3, 2, 3, "W");
+        bloons.Add(WhiteBloon);
+    }
+    for (int i = 0; i < round.redCount; i++)
+    {
+        Bloon RainbowBloon = new Bloon("Rainbow", 6, 1, 8, "RB");
+        bloons.Add(RainbowBloon);
+    }
+    for (int i = 0; i < round.redCount; i++)
+    {
+        Bloon Moab = new Bloon("Moab", 20, 1, 15, "M");
+        bloons.Add(Moab);
+    }
+
+    return bloons;
+}

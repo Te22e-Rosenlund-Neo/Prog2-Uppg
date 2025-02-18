@@ -7,7 +7,7 @@ namespace Monkeys
     class Monkey
     {
 
-        private string Name;
+        private string name;
         private int attackDamage;
         private int attackSpeed;
         public int Cost;
@@ -16,7 +16,7 @@ namespace Monkeys
         public Monkey(string name, int AttackDamage, int AttackSpeed, int Cost)
         {
 
-            Name = name;
+            name = name;
             this.attackSpeed = AttackSpeed;
             this.attackDamage = AttackDamage;
             this.Cost = Cost;
@@ -25,14 +25,18 @@ namespace Monkeys
 
         public void Showstats()
         {
-            Console.WriteLine($"Type: {Name}");
+            Console.WriteLine($"Type: {name}");
             Console.WriteLine($"Damage: {attackDamage}");
             Console.WriteLine($"Rounds between attacks: {attackSpeed}");
             Console.WriteLine($"Cost: {Cost}");
         }
-        public int attack()
+        public int Attack()
         {
             return attackDamage;
+        }
+        public string Name()
+        {
+            return name;
         }
 
 
@@ -52,11 +56,13 @@ namespace Monkeys
         }
 
 
-        public int Attackagain(){
+        public int Attackagain()
+        {
             int totalDamage = 0;
 
-            for(int i = 0; i < attackAmount; i++){
-                totalDamage += attack(); 
+            for (int i = 0; i < attackAmount; i++)
+            {
+                totalDamage += Attack();
             }
 
             return totalDamage;
