@@ -20,9 +20,8 @@ namespace Rounds
         public int whiteCount { get; set; }
         public int rainbowCount { get; set; }
         public int blueMCount { get; set; }
-        public int DDTCount { get; set; }
 
-        public Round(int red, int yellow, int black, int white, int rainbow, int blueM, int DDT)
+        public Round(int red, int yellow, int black, int white, int rainbow, int blueM)
         {
             redCount = red;
             yellowCount = Math.Max(0, yellow);
@@ -30,7 +29,6 @@ namespace Rounds
             whiteCount = Math.Max(0, white);
             rainbowCount = Math.Max(0, rainbow);
             blueMCount = Math.Max(0, blueM);
-            DDTCount = Math.Max(0, DDT);
         }
 
         public static int MakeRounds()

@@ -9,7 +9,7 @@ namespace Balloons
 
         private string name;
         private int damage;
-        private int speed;
+        public int speed;
         private string symbol;
         public int health;
         // variable thats into the class and not a object, cant be changed via object referencem
@@ -27,6 +27,9 @@ namespace Balloons
 
         public int ReduceCooldown()
         {
+            return speed;
+        }
+        public int GiveSpeed(){
             return speed;
         }
         public int attack()
