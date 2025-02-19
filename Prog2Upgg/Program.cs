@@ -4,7 +4,7 @@ using Rounds;
 using System.Text;
 
 Console.OutputEncoding = Encoding.UTF8;
-Monkey pilApa = new Monkey("Pilapa", 3, 1, 2);
+Monkey pilApa = new Monkey("Pilapa", 1, 1, 2);
 MultiAttMonkey kanon = new MultiAttMonkey("kanon", 1, 1, 3, 5);
 SlowMoney isApa = new SlowMoney("IsApa", 0, 1, 2, 4);
 Monkey stålApa = new Monkey("StålApa", 8, 2, 10);
@@ -17,7 +17,7 @@ List<Monkey> AllMonkeys = new(){
 };
 
 
-int money = 10;
+float money = 10f;
 int health = 10;
 
 
@@ -36,12 +36,12 @@ while (GameOn)
     for (int i = 0; i < amountOfRounds; i++)
     {
         //rounds 1 range: 
-        Round r = new Round(i + 2, i * 2, i, i, i - 1, i - 3);
+        Round r = new Round(i + 3, i * 2, i, i, i - 1, i - 3);
         rounds.Add(r);
     }
     Console.ReadLine();
     List<Monkey> MyMonkeys = new List<Monkey>(){
-        pilApa, pilApa, pilApa
+        isApa, pilApa, pilApa
     };
     int currentround = 0;
     while (currentround < amountOfRounds)
@@ -72,7 +72,7 @@ while (GameOn)
 
                 while (true)
                 {
-                    Console.WriteLine($"Who should {m.GetName()} attack? (write the number)");
+                    Console.WriteLine($"Who should {m.GetName()} attack? (damage: {m.Attack()}) (write the number)");
                     response = Console.ReadLine() ?? "";
 
                     if (int.TryParse(response, out int x))
@@ -84,16 +84,22 @@ while (GameOn)
                     }
                 }
 
-                Bloon chosen = attackingBloons[Convert.ToInt32(response)];
+                Bloon chosen = attackingBloons[Convert.ToInt32(response) - 1];
                 chosen.health -= m.Attack();
                 chosen.speed += m.ApplyEffect();
 
                 if (chosen.health <= 0)
                 {
-                    attackingBloons.RemoveAt(Convert.ToInt32(response));
+                    money += 0.5f;
+                    Console.WriteLine("You killed a balloon");
+                    attackingBloons.RemoveAt(Convert.ToInt32(response) - 1);
+                }
+                if (attackingBloons.Count == 0)
+                {
+                    break;
                 }
 
-
+                Console.Clear();
             }
 
 
@@ -105,13 +111,14 @@ while (GameOn)
             Console.ReadLine();
 
 
-            if (attackingBloons[0] == null)
+            if (attackingBloons.Count == 0)
             {
                 break;
             }
 
             for (int i = 0; i < attackingBloons.Count; i++)
             {
+                Console.WriteLine("All bloons walked a little closer");
 
                 Bloon bl = attackingBloons[i];
                 bl.speed -= 1;
@@ -131,7 +138,12 @@ while (GameOn)
             }
 
 
-            MyMonkeys.Add(ShopSystem());
+            var shopresult = ShopSystem();
+
+            if (shopresult != null)
+            {
+                MyMonkeys.Add(shopresult);
+            }
         }
         if (health <= 0)
         {
@@ -152,12 +164,12 @@ while (GameOn)
 }
 
 
-Monkey ShopSystem()
+Monkey? ShopSystem()
 {
 
     Console.Clear();
 
-    List<string> choices = new List<string>() { "1", "2", "3", "4", "5" };
+    List<string> choices = new List<string>() { "0", "1", "2", "3", "4", "n" };
     Console.WriteLine(@"MONKEY - SHOP");
     Console.WriteLine("What monkey would u like?");
     Console.WriteLine($"Your Money: {money}");
@@ -165,36 +177,34 @@ Monkey ShopSystem()
 
     for (int i = 0; i < AllMonkeys.Count; i++)
     {
-        Console.WriteLine(i);
+        Console.WriteLine("Index:" + (i + 1));
         AllMonkeys[i].Showstats();
         Console.WriteLine("------------------------");
     }
     string answer;
-    do
+
+    while (true)
     {
-        Console.WriteLine("please enter a valid choice that u can afford!:");
-        answer = Console.ReadLine() ?? "";
+        Console.WriteLine("please enter a valid choice that u can afford!: (or n for none)");
+        answer = Console.ReadLine();
 
-    } while (!choices.Contains(answer) && AllMonkeys[Convert.ToInt32(answer)].Cost <= money);
+        if (answer.ToLower() == "n")
+        {
+            return null;
+        }
+        else if (choices.Contains(answer.ToLower()))
+        {
+            if (AllMonkeys[Convert.ToInt32(answer) - 1].Cost <= money)
+            {
+                money -= AllMonkeys[Convert.ToInt32(answer) - 1].Cost;
+                Monkey chosen = AllMonkeys[Convert.ToInt32(answer) - 1];
+                return chosen;
+            }
+        }
 
-    Monkey chosen = AllMonkeys[Convert.ToInt32(answer)];
-
-    money -= AllMonkeys[Convert.ToInt32(answer)].Cost;
-    return chosen;
+    }
 }
-string answerChecker(List<string> Answers)
-{
 
-    string input;
-    do
-    {
-
-        Console.Write("Please type a valid argument");
-        input = Console.ReadLine() ?? "";
-    } while (!Answers.Contains(input));
-
-    return input;
-}
 
 void attack(Monkey attacker, Bloon defender)
 {
@@ -216,7 +226,7 @@ List<Bloon> GenerateBloons(Round round)
     }
     for (int i = 0; i < round.yellowCount; i++)
     {
-        Bloon YellowBloon = new Bloon("Yellow", 1, 3, 1, "Y");
+        Bloon YellowBloon = new Bloon("Yellow", 1, 1, 3, "Y");
         bloons.Add(YellowBloon);
     }
     for (int i = 0; i < round.blackCount; i++)
@@ -226,17 +236,17 @@ List<Bloon> GenerateBloons(Round round)
     }
     for (int i = 0; i < round.whiteCount; i++)
     {
-        Bloon WhiteBloon = new Bloon("White", 3, 4, 3, "W");
+        Bloon WhiteBloon = new Bloon("White", 3, 4, 5, "W");
         bloons.Add(WhiteBloon);
     }
     for (int i = 0; i < round.rainbowCount; i++)
     {
-        Bloon RainbowBloon = new Bloon("Rainbow", 6, 7, 12, "RB");
+        Bloon RainbowBloon = new Bloon("Rainbow", 6, 7, 20, "RB");
         bloons.Add(RainbowBloon);
     }
     for (int i = 0; i < round.blueMCount; i++)
     {
-        Bloon Moab = new Bloon("Moab", 20, 10, 20, "M");
+        Bloon Moab = new Bloon("Moab", 20, 10, 40, "M");
         bloons.Add(Moab);
     }
 

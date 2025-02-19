@@ -30,7 +30,7 @@ namespace Monkeys
             Console.WriteLine($"Rounds between attacks: {attackSpeed}");
             Console.WriteLine($"Cost: {Cost}");
         }
-        public int Attack()
+        public virtual int Attack()
         {
             return attackDamage;
         }
@@ -39,7 +39,9 @@ namespace Monkeys
             return Name;
         }
 
-        public int ApplyEffect(){
+        public virtual int ApplyEffect(){
+            Console.WriteLine("Was done instead??");
+            Console.ReadLine();
             return 0;
         }
 
@@ -59,7 +61,7 @@ namespace Monkeys
         }
 
 
-        public int Attack()
+         public override int Attack()
         {
 
             int totalDamage = base.Attack() * attackAmount;
@@ -76,8 +78,10 @@ namespace Monkeys
             slowAmount = Slow;
         }
 
-        public int ApplyEffect()
+        public override int ApplyEffect()
         {
+            Console.WriteLine("slowed");
+            Console.ReadLine();
             return slowAmount;
         }
 
