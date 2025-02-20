@@ -12,7 +12,7 @@ namespace Monkeys
         private int attackSpeed;
         public int Cost;
         public string Description;
-        
+
         public Monkey(string name, int AttackDamage, int AttackSpeed, int Cost, string Description)
         {
 
@@ -23,7 +23,7 @@ namespace Monkeys
             this.Description = Description;
 
         }
-//shows default information about the monkey
+        //shows default information about the monkey
         public void Showstats()
         {
             Console.WriteLine($"Type: {Name}");
@@ -31,12 +31,13 @@ namespace Monkeys
             Console.WriteLine(Description);
             Console.WriteLine($"Cost: {Cost}");
         }
-//damages the enemy bloon, second parameter is just there for the override
+        //damages the enemy bloon, second parameter is just there for the override
         public virtual void Attack(Bloon target, Bloon target2)
         {
             target.takeDamage(attackDamage);
         }
-        public int getdamage(){
+        public int getdamage()
+        {
             return attackDamage;
         }
         public string GetName()
@@ -44,12 +45,13 @@ namespace Monkeys
             return Name;
         }
 
-        public virtual void ApplyEffect(Bloon target){
-//base method to override
+        public virtual void ApplyEffect(Bloon target)
+        {
+            //base method to override
         }
 
     }
-//useless parenting, here more for display and organizing
+    //useless parenting, here more for display and organizing
     class EffMonkey : Monkey
     {
         public EffMonkey(string name, int AttackDamage, int AttackSpeed, int cost, string Description) : base(name, AttackDamage, AttackSpeed, cost, Description) { }
@@ -63,12 +65,15 @@ namespace Monkeys
             this.attackAmount = attackAmount;
         }
 
-//overrides base method, attacks twice, split between 2 targets if 2 exists
-         public override void Attack(Bloon target, Bloon target2)
+        //overrides base method, attacks twice, split between 2 targets if 2 exists
+        public override void Attack(Bloon target, Bloon target2)
         {
-            if(target == target2){
+            if (target == target2)
+            {
                 base.Attack(target, target2);
-            }else{
+            }
+            else
+            {
                 base.Attack(target, target2);
                 base.Attack(target2, target);
             }
@@ -82,11 +87,11 @@ namespace Monkeys
         {
             slowAmount = Slow;
         }
-//makes enemy bloon take longer to reach its destination
+        //makes enemy bloon take longer to reach its destination
         public override void ApplyEffect(Bloon target)
         {
             target.ChangeCoolDown(slowAmount);
-            
+
         }
 
     }

@@ -22,15 +22,17 @@ namespace Balloons
             this.symbol = symbol;
         }
 
-        public int GiveSpeed(){
+        public int GiveSpeed()
+        {
             return speed;
         }
-        
+
         public int attack()
         {
             return damage;
         }
-        public void takeDamage(int amount){
+        public void takeDamage(int amount)
+        {
             health -= amount;
         }
         public void DisplayBaseStats()
@@ -42,13 +44,14 @@ namespace Balloons
         {
             return symbol;
         }
-        public void ChangeCoolDown(int amount){
+        public void ChangeCoolDown(int amount)
+        {
             speed += amount;
-            
+
         }
     }
 
-//technically useless inheritance, just here for display and sorting if more bloons are added with more features.
+    //technically useless inheritance, just here for display and sorting if more bloons are added with more features.
     public class SpecialBloon : Bloon
     {
 
