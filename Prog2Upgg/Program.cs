@@ -45,18 +45,19 @@ while (GameOn)
         kanon, kanon, pilApa
     };
     int currentround = 0;
+
+    Console.WriteLine($"Your goal is to protect your base from getting destroyed, u start with {health} health");
+    WriteColoredText("Each wave, a set amount of balloons will spawn, if any of these balloons reach u, ur base take damage\n", "green");
+    Console.WriteLine("To defend yourself, u have monkeys, each monkey attacks in different ways, and u choose what balloon to attack");
+    WriteColoredText("DONT LET THE BALLOONS REACH YOU!!!", "red");
+
+    Console.WriteLine("\n press enter to start");
+    Console.ReadLine();
     while (currentround < amountOfRounds)
     {
         Console.Clear();
         List<Bloon> attackingBloons = GenerateBloons(rounds[currentround]);
 
-        Console.WriteLine($"Your goal is to protect your base from getting destroyed, u start with {health} health");
-        WriteColoredText("Each wave, a set amount of balloons will spawn, if any of these balloons reach u, ur base take damage\n", "green");
-        Console.WriteLine("To defend yourself, u have monkeys, each monkey attacks in different ways, and u choose what balloon to attack");
-        WriteColoredText("DONT LET THE BALLOONS REACH YOU!!!", "red");
-
-        Console.WriteLine("\n press enter to start");
-        Console.ReadLine();
         while (true)
         {
             //the game loop:
@@ -106,7 +107,7 @@ while (GameOn)
                         Bloon chosen2 = attackingBloons[attackingBloons.IndexOf(chosen) + 1];
                         m.Attack(chosen, chosen2);
                         m.ApplyEffect(chosen);
-//borde göras till funktion
+                        //borde göras till funktion
                         if (chosen2.health <= 0)
                         {
                             money += 0.5f;
@@ -204,6 +205,7 @@ while (GameOn)
             break;
         }
         Console.WriteLine("Round:   " + currentround + 1 + " Finished");
+        Console.ReadLine();
         currentround += 1;
         if (currentround > amountOfRounds)
         {
