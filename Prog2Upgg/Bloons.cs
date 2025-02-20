@@ -9,11 +9,9 @@ namespace Balloons
 
         private string name;
         private int damage;
-        public int speed;
+        private int speed;
         private string symbol;
         public int health;
-        // variable thats into the class and not a object, cant be changed via object referencem
-        public static int enemyCount;
 
         public Bloon(string name, int damage, int speed, int health, string symbol)
         {
@@ -22,19 +20,18 @@ namespace Balloons
             this.speed = speed;
             this.health = health;
             this.symbol = symbol;
-            enemyCount++;
         }
 
-        public int ReduceCooldown()
-        {
-            return speed;
-        }
         public int GiveSpeed(){
             return speed;
         }
+        
         public int attack()
         {
             return damage;
+        }
+        public void takeDamage(int amount){
+            health -= amount;
         }
         public void DisplayBaseStats()
         {
@@ -45,9 +42,13 @@ namespace Balloons
         {
             return symbol;
         }
+        public void ChangeCoolDown(int amount){
+            speed += amount;
+            
+        }
     }
 
-
+//technically useless inheritance, just here for display and sorting if more bloons are added with more features.
     public class SpecialBloon : Bloon
     {
 

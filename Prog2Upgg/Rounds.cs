@@ -4,7 +4,7 @@ namespace Rounds
     class Round
     {
 
-        //redbloon, yellow bloon, black bloon, white bloon, rainbow bloon, blue moab, DDT
+        //redbloon, yellow bloon, black bloon, white bloon, rainbow bloon, blue moab
         private int _redCount = 0;
         public int BloonTypes = 6;
         public int redCount
@@ -21,6 +21,7 @@ namespace Rounds
         public int rainbowCount { get; set; }
         public int blueMCount { get; set; }
 
+//how many of each bloon that exists. Math.max ensures we cant have below 0 of them
         public Round(int red, int yellow, int black, int white, int rainbow, int blueM)
         {
             redCount = red;
@@ -30,7 +31,7 @@ namespace Rounds
             rainbowCount = Math.Max(0, rainbow);
             blueMCount = Math.Max(0, blueM);
         }
-
+//user puts in how many rounds they want, cant be more than max allowed
         public static int MakeRounds()
         {
             string response = "";
