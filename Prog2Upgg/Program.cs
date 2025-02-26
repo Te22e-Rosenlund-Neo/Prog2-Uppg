@@ -39,10 +39,9 @@ while (GameOn)
         Round r = new Round(i + 3, i * 2, i, i, i - 1, i - 3);
         rounds.Add(r);
     }
-
     //players towers
     List<Monkey> MyMonkeys = new List<Monkey>(){
-        kanon, kanon, pilApa
+        pilApa, kanon, isApa
     };
     int currentround = 0;
 
@@ -92,19 +91,19 @@ while (GameOn)
                 }
 
                 Bloon chosen = attackingBloons[Convert.ToInt32(response) - 1];
+                Bloon chosen2 = chosen;
                 //this check is to see if the multiattack monkeys can attack multiple bloons at oncww
-                if (attackingBloons.Count == 1)
+                if (attackingBloons.Count <= 1)
                 {
-                    m.Attack(chosen, chosen);
+                    m.Attack(chosen, chosen2);
                     m.ApplyEffect(chosen);
                 }
                 else
                 {
 
-
-                    if (attackingBloons.ElementAtOrDefault(Convert.ToInt32(response) + 1) != null)
+                    if (attackingBloons.ElementAtOrDefault(attackingBloons.IndexOf(chosen) + 1) != null)
                     {
-                        Bloon chosen2 = attackingBloons[attackingBloons.IndexOf(chosen) + 1];
+                        chosen2 = attackingBloons[attackingBloons.IndexOf(chosen) + 1];
                         m.Attack(chosen, chosen2);
                         m.ApplyEffect(chosen);
                         //borde göras till funktion
@@ -118,7 +117,7 @@ while (GameOn)
                     }
                     else
                     {
-                        Bloon chosen2 = attackingBloons[attackingBloons.IndexOf(chosen) - 1];
+                        chosen2 = attackingBloons[attackingBloons.IndexOf(chosen) - 1];
                         m.Attack(chosen, chosen2);
                         m.ApplyEffect(chosen);
 
@@ -137,7 +136,7 @@ while (GameOn)
                     money += 0.5f;
                     Console.WriteLine("You killed a balloon, press enter to continue");
                     Console.ReadLine();
-                    attackingBloons.RemoveAt(Convert.ToInt32(response) - 1);
+                    attackingBloons.RemoveAt(attackingBloons.IndexOf(chosen));
                 }
                 if (attackingBloons.Count == 0)
                 {
