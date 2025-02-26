@@ -170,12 +170,11 @@ while (gameOn)
                 attackingBloons.RemoveAt(attackingBloons.IndexOf(b));
             }
             removableBloons.Clear();
-            //spelaren dör
+            //player dies
             if (health <= 0)
             {
                 Console.WriteLine("You died");
                 Console.ReadLine();
-                currentRound = -1;
                 break;
             }
 
@@ -190,16 +189,21 @@ while (gameOn)
             }
         }
 
-        Console.WriteLine("Round:   " + currentRound + 1 + " Finished");
+        Console.WriteLine("Round:   " + (currentRound + 1) + " Finished");
         Console.ReadLine();
         currentRound += 1;
+
+        if(health <= 0){
+            break;
+        }
         if (currentRound > rounds.Count - 1)
         {
+            Console.WriteLine("YOU WON!!!");
             break;
         }
     }
 
-    Console.WriteLine("YOU WON!!!");
+    
     Console.ReadLine();
     Console.Clear();
 }
