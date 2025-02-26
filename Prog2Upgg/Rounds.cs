@@ -5,7 +5,7 @@ namespace Rounds
 
         //redbloon, yellow bloon, black bloon, white bloon, rainbow bloon, blue moab
         private int _redCount = 0;
-        public int BloonTypes = 6;
+        public int bloonTypes = 6;
         public int redCount
         {
             get => _redCount;

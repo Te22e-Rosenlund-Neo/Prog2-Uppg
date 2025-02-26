@@ -6,34 +6,34 @@ namespace Monkeys
     class Monkey
     {
 
-        private string Name;
+        private string name;
         private int attackDamage;
         private int attackSpeed;
-        public int Cost;
-        public string Description;
+        public int cost;
+        public string description;
 
-        public Monkey(string name, int AttackDamage, int AttackSpeed, int Cost, string Description)
+        public Monkey(string name, int attackDamage, int attackSpeed, int cost, string description)
         {
 
-            this.Name = name;
-            this.attackSpeed = AttackSpeed;
-            this.attackDamage = AttackDamage;
-            this.Cost = Cost;
-            this.Description = Description;
+            this.name = name;
+            this.attackSpeed = attackSpeed;
+            this.attackDamage = attackDamage;
+            this.cost = cost;
+            this.description = description;
 
         }
         //shows default information about the monkey for the shop
-        public virtual void Showstats()
+        public virtual void ShowStats()
         {
-            Console.WriteLine($"Type: {Name}");
+            Console.WriteLine($"Type: {name}");
             Console.WriteLine($"Damage: {attackDamage}");
-            Console.WriteLine(Description);
-            Console.WriteLine($"Cost: {Cost}");
+            Console.WriteLine(description);
+            Console.WriteLine($"Cost: {cost}");
         }
         //damages the enemy bloon, second parameter is just there for the override
         public virtual void Attack(Bloon target, Bloon target2)
         {
-            target.takeDamage(attackDamage);
+            target.TakeDamage(attackDamage);
         }
 
         //Displays either just name, or the info given when the monkey is attacking. 
@@ -41,11 +41,11 @@ namespace Monkeys
         {
             if (option == 1)
             {
-                Console.Write($"{Name} , ");
+                Console.Write($"{name} , ");
             }
             else
             {
-                Console.WriteLine($"Who should {Name} attack? (damage: {attackDamage}) (write the number)");
+                Console.WriteLine($"Who should {name} attack? (damage: {attackDamage}) (write the number)");
             }
         }
 
@@ -60,19 +60,19 @@ namespace Monkeys
     {
         string name = "";
         int attackDamage;
-        public EffMonkey(string name, int AttackDamage, int AttackSpeed, int cost, string Description) : base(name, AttackDamage, AttackSpeed, cost, Description)
+        public EffMonkey(string name, int attackDamage, int attackSpeed, int cost, string description) : base(name, attackDamage, attackSpeed, cost, description)
         {
             this.name = name;
-            this.attackDamage = AttackDamage;
+            this.attackDamage = attackDamage;
         }
 //shows simple stats in special color
-        public override void Showstats()
+        public override void ShowStats()
         {
             Console.ForegroundColor = ConsoleColor.Yellow;
             Console.WriteLine($"Type: {name}");
             Console.WriteLine($"Damage: {attackDamage}");
-            Console.WriteLine(Description);
-            Console.WriteLine($"Cost: {Cost}");
+            Console.WriteLine(description);
+            Console.WriteLine($"Cost: {cost}");
             Console.ResetColor();
         }
 //displays name in a colro
@@ -93,10 +93,10 @@ namespace Monkeys
 
     class MultiAttMonkey : EffMonkey
     {
-        int attackAmount;
-        public MultiAttMonkey(string name, int AttackDamage, int AttackSpeed, int attackAmount, int cost, string Description) : base(name, AttackDamage, AttackSpeed, cost, Description)
+
+        public MultiAttMonkey(string name, int attackDamage, int attackSpeed, int cost, string Description) : base(name, attackDamage, attackSpeed, cost, Description)
         {
-            this.attackAmount = attackAmount;
+
         }
 
         //overrides base method, attacks twice, split between 2 targets if 2 exists, otherwise attacks same target twice
@@ -112,9 +112,9 @@ namespace Monkeys
     class SlowMoney : EffMonkey
     {
         int slowAmount;
-        public SlowMoney(string name, int AttackDamage, int AttackSpeed, int Slow, int cost, string Description) : base(name, AttackDamage, AttackSpeed, cost, Description)
+        public SlowMoney(string name, int attackDamage, int attackSpeed, int slow, int cost, string description) : base(name, attackDamage, attackSpeed, cost, description)
         {
-            slowAmount = Slow;
+            slowAmount = slow;
         }
         //makes enemy bloon take longer to reach its destination (before it can hurt the player)
         public override void ApplyEffect(Bloon target)

@@ -26,17 +26,17 @@ namespace Balloons
             return speed;
         }
 //returns attack damage
-        public int attack()
+        public int Attack()
         {
             return damage;
         }
 //takes damage based on input
-        public void takeDamage(int amount)
+        public void TakeDamage(int amount)
         {
             health -= amount;
         }
 //displays attack text in color
-        public void shortDisplay(){
+        public void ShortDisplay(){
             Console.ForegroundColor = color;
             Console.WriteLine($"{GetName()}: hp: {health}: attacks in: {GiveSpeed()} rounds");
             Console.ResetColor();

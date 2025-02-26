@@ -4,24 +4,24 @@ using Rounds;
 
 //creates different monkeys player can use
 Monkey pilApa = new Monkey("Pilapa", 1, 1, 2, "Single target killing");
-MultiAttMonkey kanon = new MultiAttMonkey("kanon", 1, 1, 3, 5, "Attacks 2 enemies at once");
+MultiAttMonkey kanon = new MultiAttMonkey("kanon", 1, 1, 5, "Attacks 2 enemies at once");
 SlowMoney isApa = new SlowMoney("IsApa", 0, 1, 2, 4, "Slows enemy bloons down");
 Monkey stålApa = new Monkey("StålApa", 8, 2, 10, "High damage single target");
 
 float money = 10f;
 int health = 10;
 
-List<Monkey> AllMonkeys = new(){
+List<Monkey> allMonkeys = new(){
     pilApa,
     kanon,
     isApa,
     stålApa
 };
 
-bool GameOn = true;
+bool gameOn = true;
 
 //gameloop so game can be reset without restarting app
-while (GameOn)
+while (gameOn)
 {
 
 
@@ -32,11 +32,11 @@ while (GameOn)
     List<Round> rounds = Round.MakeRounds();
 
     //players towers
-    List<Monkey> MyMonkeys = new List<Monkey>(){
+    List<Monkey> myMonkeys = new List<Monkey>(){
         pilApa, kanon, isApa
     };
 
-    int currentround = 0;
+    int currentRound = 0;
     Console.Clear();
     Console.WriteLine($"Your goal is to protect your base from getting destroyed, u start with {health} health");
     WriteColoredText("Each wave, a set amount of balloons will spawn, if any of these balloons reach u, ur base take damage\n", ConsoleColor.Green);
@@ -47,10 +47,10 @@ while (GameOn)
     Console.ReadLine();
 
     //each round works here
-    while (currentround < rounds.Count)
+    while (currentRound < rounds.Count)
     {
         Console.Clear();
-        List<Bloon> attackingBloons = GenerateBloons(rounds[currentround]);
+        List<Bloon> attackingBloons = GenerateBloons(rounds[currentRound]);
 
         while (true)
         {
@@ -62,7 +62,7 @@ while (GameOn)
             WriteColoredText($"Your base has {health} health left", ConsoleColor.Green);
 
             Console.Write($"Your towers: ");
-            foreach (Monkey m in MyMonkeys)
+            foreach (Monkey m in myMonkeys)
             {
                 m.GetName(1);
             }
@@ -70,12 +70,12 @@ while (GameOn)
 
             // for every monkey u got, u first get displayed the enemies, so u can choose who to attack
             int enemies = attackingBloons.Count;
-            foreach (Monkey m in MyMonkeys)
+            foreach (Monkey m in myMonkeys)
             {
                 //displays all bloons
                 foreach (Bloon blo in attackingBloons)
                 {
-                    blo.shortDisplay();
+                    blo.ShortDisplay();
 
                 }
 
@@ -143,7 +143,7 @@ while (GameOn)
             }
             //all balloons walk closer to the players base, if they reach, they do damage
             //we add each bloon to die to a list, so removing wont change the order
-            List<Bloon> RemovableBloons = new();
+            List<Bloon> removableBloons = new();
             Console.WriteLine("All bloons walked a little closer");
             for (int i = 0; i < attackingBloons.Count; i++)
             {
@@ -155,9 +155,9 @@ while (GameOn)
                 //damages base
                 if (bl.GiveSpeed() <= 0)
                 {
-                    Console.WriteLine($"A bloon of type {bl.GetName()} hit u, u took {bl.attack()} amount of damage");
-                    health -= bl.attack();
-                    RemovableBloons.Add(bl);
+                    Console.WriteLine($"A bloon of type {bl.GetName()} hit u, u took {bl.Attack()} amount of damage");
+                    health -= bl.Attack();
+                    removableBloons.Add(bl);
                 }
             }
 
@@ -165,33 +165,35 @@ while (GameOn)
             Console.ReadLine();
 
             //destroys killed bloons
-            foreach (Bloon b in RemovableBloons)
+            foreach (Bloon b in removableBloons)
             {
                 attackingBloons.RemoveAt(attackingBloons.IndexOf(b));
             }
-            RemovableBloons.Clear();
+            removableBloons.Clear();
             //spelaren dör
             if (health <= 0)
             {
                 Console.WriteLine("You died");
                 Console.ReadLine();
-                currentround = -1;
+                currentRound = -1;
                 break;
             }
 
+
+
             //calls the shop where player may buy one monkey if they have enough money
-            var shopresult = ShopSystem();
+            var shopresult = ShopSystem(allMonkeys);
 
             if (shopresult != null)
             {
-                MyMonkeys.Add(shopresult);
+                myMonkeys.Add(shopresult);
             }
         }
 
-        Console.WriteLine("Round:   " + currentround + 1 + " Finished");
+        Console.WriteLine("Round:   " + currentRound + 1 + " Finished");
         Console.ReadLine();
-        currentround += 1;
-        if (currentround > rounds.Count - 1)
+        currentRound += 1;
+        if (currentRound > rounds.Count - 1)
         {
             break;
         }
@@ -202,8 +204,8 @@ while (GameOn)
     Console.Clear();
 }
 
-//You can buy a monkey with the money u have, or u can chose not to, returns chosen monkey
-Monkey? ShopSystem()
+//You can buy a monkey with the money u have, or u can chose not to (returns null), returns chosen monkey
+Monkey? ShopSystem(List<Monkey> allMonkeys)
 {
 
     Console.Clear();
@@ -214,10 +216,10 @@ Monkey? ShopSystem()
     Console.WriteLine($"Your Money: {money}");
     Console.WriteLine();
     //displays all monkeys
-    for (int i = 0; i < AllMonkeys.Count; i++)
+    for (int i = 0; i < allMonkeys.Count; i++)
     {
         Console.WriteLine("Index:" + (i + 1));
-        AllMonkeys[i].Showstats();
+        allMonkeys[i].ShowStats();
         Console.WriteLine("------------------------");
     }
     string answer;
@@ -233,10 +235,10 @@ Monkey? ShopSystem()
         }
         else if (choices.Contains(answer.ToLower()))
         {
-            if (AllMonkeys[Convert.ToInt32(answer) - 1].Cost <= money)
+            if (allMonkeys[Convert.ToInt32(answer) - 1].cost <= money)
             {
-                money -= AllMonkeys[Convert.ToInt32(answer) - 1].Cost;
-                Monkey chosen = AllMonkeys[Convert.ToInt32(answer) - 1];
+                money -= allMonkeys[Convert.ToInt32(answer) - 1].cost;
+                Monkey chosen = allMonkeys[Convert.ToInt32(answer) - 1];
                 return chosen;
             }
         }
@@ -255,33 +257,33 @@ List<Bloon> GenerateBloons(Round round)
 
     for (int i = 0; i < round.redCount; i++)
     {
-        Bloon RedBloon = new Bloon("RedBloon", 20, 1, 2, ConsoleColor.Red);
-        bloons.Add(RedBloon);
+        Bloon redBloon = new Bloon("RedBloon", 20, 1, 2, ConsoleColor.Red);
+        bloons.Add(redBloon);
     }
     for (int i = 0; i < round.yellowCount; i++)
     {
-        Bloon YellowBloon = new Bloon("YellowBloon", 1, 1, 3, ConsoleColor.Yellow);
-        bloons.Add(YellowBloon);
+        Bloon yellowBloon = new Bloon("YellowBloon", 1, 1, 3, ConsoleColor.Yellow);
+        bloons.Add(yellowBloon);
     }
     for (int i = 0; i < round.blackCount; i++)
     {
-        Bloon BlackBloon = new Bloon("BlackBloon", 3, 3, 4, ConsoleColor.Black);
-        bloons.Add(BlackBloon);
+        Bloon blackBloon = new Bloon("BlackBloon", 3, 3, 4, ConsoleColor.Black);
+        bloons.Add(blackBloon);
     }
     for (int i = 0; i < round.whiteCount; i++)
     {
-        Bloon WhiteBloon = new Bloon("WhiteBloon", 3, 4, 5, ConsoleColor.White);
-        bloons.Add(WhiteBloon);
+        Bloon whiteBloon = new Bloon("WhiteBloon", 3, 4, 5, ConsoleColor.White);
+        bloons.Add(whiteBloon);
     }
     for (int i = 0; i < round.rainbowCount; i++)
     {
-        Bloon RainbowBloon = new Bloon("RainbowBloon", 6, 7, 20, ConsoleColor.DarkMagenta);
-        bloons.Add(RainbowBloon);
+        Bloon rainbowBloon = new Bloon("RainbowBloon", 6, 7, 20, ConsoleColor.DarkMagenta);
+        bloons.Add(rainbowBloon);
     }
     for (int i = 0; i < round.blueMCount; i++)
     {
-        Bloon Moab = new Bloon("Moab", 20, 10, 40, ConsoleColor.DarkBlue);
-        bloons.Add(Moab);
+        Bloon MOAB = new Bloon("Moab", 20, 10, 40, ConsoleColor.DarkBlue);
+        bloons.Add(MOAB);
     }
 
     return bloons;
