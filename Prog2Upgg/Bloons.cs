@@ -1,4 +1,3 @@
-using Monkeys;
 namespace Balloons
 {
     //redbloon, yellow bloon, black bloon, white bloon, rainbow bloon, blue moab, DDT
@@ -10,63 +9,60 @@ namespace Balloons
         private string name;
         private int damage;
         private int speed;
-        private string symbol;
         public int health;
+        private ConsoleColor color;
 
-        public Bloon(string name, int damage, int speed, int health, string symbol)
+        public Bloon(string name, int damage, int speed, int health, ConsoleColor color)
         {
             this.name = name;
             this.damage = damage;
             this.speed = speed;
             this.health = health;
-            this.symbol = symbol;
+            this.color = color;
         }
-
+//displays speed
         public int GiveSpeed()
         {
             return speed;
         }
-
+//returns attack damage
         public int attack()
         {
             return damage;
         }
+//takes damage based on input
         public void takeDamage(int amount)
         {
             health -= amount;
         }
-        public void DisplayBaseStats()
-        {
-            Console.Write($"Name{name}  ");
-            Console.Write($"Hp{health}");
+//displays attack text in color
+        public void shortDisplay(){
+            Console.ForegroundColor = color;
+            Console.WriteLine($"{GetName()}: hp: {health}: attacks in: {GiveSpeed()} rounds");
+            Console.ResetColor();
         }
-        public string Symbol()
-        {
-            return symbol;
-        }
+//increases time until it reaches target
         public void ChangeCoolDown(int amount)
         {
             speed += amount;
 
         }
-    }
-
-    //technically useless inheritance, just here for display and sorting if more bloons are added with more features.
-    public class SpecialBloon : Bloon
-    {
-
-        private string weakness { set; get; }
-        public SpecialBloon(string name, int damage, int speed, int health, string weakness, string symbol) : base(name, damage, speed, health, symbol)
-        {
-            this.weakness = weakness;
+//displays name
+        public string GetName(){
+            return name;
         }
+//checks if a bloon health is less that 0, if so removes itself from list
+        public static List<Bloon> CheckForRemoval(Bloon checker, List<Bloon> AllBloons){
+            
+            if(checker.health <= 0){
+                AllBloons.RemoveAt(AllBloons.IndexOf(checker));
+                Console.WriteLine("You killed a bloon, press enter to confirm");
+                Console.ReadLine();
+            }
 
+            return AllBloons;
+        }
+        
     }
-    public class MOAB : Bloon
-    {
-        public MOAB(string name, int damage, int speed, int health, string symbol) : base(name, damage, speed, health, symbol) { }
-
-    }
-
 }
 

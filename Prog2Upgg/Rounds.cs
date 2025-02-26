@@ -1,4 +1,3 @@
-using Balloons;
 namespace Rounds
 {
     class Round
@@ -31,10 +30,13 @@ namespace Rounds
             rainbowCount = Math.Max(0, rainbow);
             blueMCount = Math.Max(0, blueM);
         }
-        //user puts in how many rounds they want, cant be more than max allowed
-        public static int MakeRounds()
+        //user puts in how many rounds they want, cant be more than max allowed or below 0
+        //returns a list of all rounds made
+        public static List<Round> MakeRounds()
         {
             string response = "";
+            int roundCount;
+            List<Round> allRounds = new();
             while (true)
             {
                 Console.WriteLine("enter a number between 1 and 20");
@@ -42,15 +44,23 @@ namespace Rounds
 
                 if (int.TryParse(response, out int x))
                 {
-                    Console.WriteLine("Was number");
                     if (Convert.ToInt32(response) > 0 && Convert.ToInt32(response) < 20)
                     {
-                        Console.WriteLine("Is between");
-                        return Convert.ToInt32(response);
+                        roundCount = Convert.ToInt32(response);
+                        break;
                     }
                 }
 
             }
+
+//creates the rounds objects 
+            for (int i = 0; i < roundCount; i++)
+            {
+                Round r = new Round(i + 3, i * 2, i, i, i - 1, i - 3);
+                allRounds.Add(r);
+            }
+
+            return allRounds;
         }
 
     }
