@@ -9,8 +9,8 @@ namespace Monkeys
         private string name;
         private int attackDamage;
         private int attackSpeed;
-        public int cost;
-        public string description;
+        public int cost { get; set;}
+        public string description { get; set;}
 
         public Monkey(string name, int attackDamage, int attackSpeed, int cost, string description)
         {

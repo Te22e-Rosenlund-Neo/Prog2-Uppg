@@ -5,11 +5,11 @@ namespace Balloons
     public class Bloon
     {
 
-
+        
         private string name;
         private int damage;
         private int speed;
-        public int health;
+        int health { get; set;}
         private ConsoleColor color;
 
         public Bloon(string name, int damage, int speed, int health, ConsoleColor color)
@@ -52,17 +52,41 @@ namespace Balloons
             return name;
         }
 //checks if a bloon health is less that 0, if so removes itself from list
-        public static List<Bloon> CheckForRemoval(Bloon checker, List<Bloon> AllBloons){
+        public virtual List<Bloon> CheckForRemoval( List<Bloon> AllBloons){
             
-            if(checker.health <= 0){
-                AllBloons.RemoveAt(AllBloons.IndexOf(checker));
+            if(health <= 0){
+                AllBloons.RemoveAt(AllBloons.IndexOf(this));
                 Console.WriteLine("You killed a bloon, press enter to confirm");
                 Console.ReadLine();
             }
+            return AllBloons;
+        }
+        
+    }
+
+    public class Moab : Bloon{
+
+        private int health;
+        public Moab(string name, int damage, int speed, int health, ConsoleColor color): base(name, damage, speed, health, color){
+            this.health = health;
+
+        }
+
+        public override List<Bloon> CheckForRemoval(List<Bloon> AllBloons)
+        {
+            if(health <= 0){
+                AllBloons.RemoveAt(AllBloons.IndexOf(this));
+                Console.WriteLine("You killed the moab, however it spawned two bloons upon defeat");
+                Bloon redBloon = new Bloon("RedBloon", 20, 1, 2, ConsoleColor.Red);
+                Bloon yellowBloon = new Bloon("YellowBloon", 1, 1, 3, ConsoleColor.Yellow);
+                AllBloons.Add(redBloon);
+                AllBloons.Add(yellowBloon);
+            }   
 
             return AllBloons;
         }
         
+
     }
 }
 

@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\neo.rosenlund\\Documents\\Prog2-Uppg\\Prog2Upgg\\Prog2Upgg.csproj",
+      "projectUniqueName": "C:\\Users\\neo.rosenlund\\Documents\\GymArbete\\Prog2-Uppg\\Prog2Upgg\\Prog2Upgg.csproj",
       "projectName": "Prog2Upgg",
-      "projectPath": "C:\\Users\\neo.rosenlund\\Documents\\Prog2-Uppg\\Prog2Upgg\\Prog2Upgg.csproj",
+      "projectPath": "C:\\Users\\neo.rosenlund\\Documents\\GymArbete\\Prog2-Uppg\\Prog2Upgg\\Prog2Upgg.csproj",
       "packagesPath": "C:\\Users\\neo.rosenlund\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\neo.rosenlund\\Documents\\Prog2-Uppg\\Prog2Upgg\\obj\\",
+      "outputPath": "C:\\Users\\neo.rosenlund\\Documents\\GymArbete\\Prog2-Uppg\\Prog2Upgg\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\neo.rosenlund\\AppData\\Roaming\\NuGet\\NuGet.Config",

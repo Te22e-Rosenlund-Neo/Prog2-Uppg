@@ -5,7 +5,7 @@ using Rounds;
 //creates different monkeys player can use
 Monkey pilApa = new Monkey("Pilapa", 1, 1, 2, "Single target killing");
 MultiAttMonkey kanon = new MultiAttMonkey("kanon", 1, 1, 5, "Attacks 2 enemies at once");
-SlowMoney isApa = new SlowMoney("IsApa", 0, 1, 2, 4, "Slows enemy bloons down");
+Monkey isApa = new SlowMoney("IsApa", 0, 1, 2, 4, "Slows enemy bloons down");
 Monkey stålApa = new Monkey("StålApa", 8, 2, 10, "High damage single target");
 
 float money = 10f;
@@ -50,7 +50,7 @@ while (gameOn)
     while (currentRound < rounds.Count)
     {
         Console.Clear();
-        List<Bloon> attackingBloons = GenerateBloons(rounds[currentRound]);
+        List<Bloon> attackingBloons = rounds[currentRound].GenerateBloons();
 
         while (true)
         {
@@ -112,7 +112,7 @@ while (gameOn)
                         chosen2 = attackingBloons[attackingBloons.IndexOf(chosen) + 1];
                         m.Attack(chosen, chosen2);
                         m.ApplyEffect(chosen);
-                        attackingBloons = Bloon.CheckForRemoval(chosen2, attackingBloons);
+                        attackingBloons = chosen2.CheckForRemoval(attackingBloons);
 
                     }
                     else
@@ -120,11 +120,11 @@ while (gameOn)
                         chosen2 = attackingBloons[attackingBloons.IndexOf(chosen) - 1];
                         m.Attack(chosen, chosen2);
                         m.ApplyEffect(chosen);
-                        attackingBloons = Bloon.CheckForRemoval(chosen2, attackingBloons);
+                        attackingBloons = chosen2.CheckForRemoval(attackingBloons);
                     }
                 }
                 //checks if player killed the balloon
-                attackingBloons = Bloon.CheckForRemoval(chosen, attackingBloons);
+                attackingBloons = attackingBloons = chosen.CheckForRemoval(attackingBloons);
                 if (attackingBloons.Count == 0)
                 {
                     break;
@@ -250,48 +250,6 @@ Monkey? ShopSystem(List<Monkey> allMonkeys)
     }
 }
 
-
-
-
-
-//generates bloons bases on how many of each that specific round has
-List<Bloon> GenerateBloons(Round round)
-{
-    List<Bloon> bloons = new List<Bloon>();
-
-    for (int i = 0; i < round.redCount; i++)
-    {
-        Bloon redBloon = new Bloon("RedBloon", 20, 1, 2, ConsoleColor.Red);
-        bloons.Add(redBloon);
-    }
-    for (int i = 0; i < round.yellowCount; i++)
-    {
-        Bloon yellowBloon = new Bloon("YellowBloon", 1, 1, 3, ConsoleColor.Yellow);
-        bloons.Add(yellowBloon);
-    }
-    for (int i = 0; i < round.blackCount; i++)
-    {
-        Bloon blackBloon = new Bloon("BlackBloon", 3, 3, 4, ConsoleColor.Black);
-        bloons.Add(blackBloon);
-    }
-    for (int i = 0; i < round.whiteCount; i++)
-    {
-        Bloon whiteBloon = new Bloon("WhiteBloon", 3, 4, 5, ConsoleColor.White);
-        bloons.Add(whiteBloon);
-    }
-    for (int i = 0; i < round.rainbowCount; i++)
-    {
-        Bloon rainbowBloon = new Bloon("RainbowBloon", 6, 7, 20, ConsoleColor.DarkMagenta);
-        bloons.Add(rainbowBloon);
-    }
-    for (int i = 0; i < round.blueMCount; i++)
-    {
-        Bloon MOAB = new Bloon("Moab", 20, 10, 40, ConsoleColor.DarkBlue);
-        bloons.Add(MOAB);
-    }
-
-    return bloons;
-}
 //turns written text into colored text
 void WriteColoredText(string message, ConsoleColor color)
 {

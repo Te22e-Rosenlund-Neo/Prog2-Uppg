@@ -1,3 +1,4 @@
+using Balloons;
 namespace Rounds
 {
     class Round
@@ -5,7 +6,6 @@ namespace Rounds
 
         //redbloon, yellow bloon, black bloon, white bloon, rainbow bloon, blue moab
         private int _redCount = 0;
-        public int bloonTypes = 6;
         public int redCount
         {
             get => _redCount;
@@ -53,7 +53,7 @@ namespace Rounds
 
             }
 
-//creates the rounds objects 
+            //creates the rounds objects 
             for (int i = 0; i < roundCount; i++)
             {
                 Round r = new Round(i + 3, i * 2, i, i, i - 1, i - 3);
@@ -62,6 +62,44 @@ namespace Rounds
 
             return allRounds;
         }
+
+        public List<Bloon> GenerateBloons()
+        {
+
+            List<Bloon> bloons = new List<Bloon>();
+            for (int i = 0; i < redCount; i++)
+            {
+                Bloon redBloon = new Bloon("RedBloon", 20, 1, 2, ConsoleColor.Red);
+                bloons.Add(redBloon);
+            }
+            for (int i = 0; i < yellowCount; i++)
+            {
+                Bloon yellowBloon = new Bloon("YellowBloon", 1, 1, 3, ConsoleColor.Yellow);
+                bloons.Add(yellowBloon);
+            }
+            for (int i = 0; i < blackCount; i++)
+            {
+                Bloon blackBloon = new Bloon("BlackBloon", 3, 3, 4, ConsoleColor.Black);
+                bloons.Add(blackBloon);
+            }
+            for (int i = 0; i < whiteCount; i++)
+            {
+                Bloon whiteBloon = new Bloon("WhiteBloon", 3, 4, 5, ConsoleColor.White);
+                bloons.Add(whiteBloon);
+            }
+            for (int i = 0; i < rainbowCount; i++)
+            {
+                Bloon rainbowBloon = new Bloon("RainbowBloon", 6, 7, 20, ConsoleColor.DarkMagenta);
+                bloons.Add(rainbowBloon);
+            }
+            for (int i = 0; i < blueMCount; i++)
+            {
+                Bloon MOAB = new Bloon("Moab", 20, 10, 40, ConsoleColor.DarkBlue);
+                bloons.Add(MOAB);
+            }
+            return bloons;
+        }
+
 
     }
 }
