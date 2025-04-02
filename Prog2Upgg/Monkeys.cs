@@ -3,13 +3,13 @@ using Balloons;
 namespace Monkeys
 {
 
-    class Monkey
+    class Monkey : IBuyable
     {
 
         private string name;
         private int attackDamage;
         private int attackSpeed;
-        public int cost { get; set;}
+        public int Cost { get; set;}
         public string description { get; set;}
 
         public Monkey(string name, int attackDamage, int attackSpeed, int cost, string description)
@@ -18,7 +18,7 @@ namespace Monkeys
             this.name = name;
             this.attackSpeed = attackSpeed;
             this.attackDamage = attackDamage;
-            this.cost = cost;
+            this.Cost = cost;
             this.description = description;
 
         }
@@ -28,7 +28,7 @@ namespace Monkeys
             Console.WriteLine($"Type: {name}");
             Console.WriteLine($"Damage: {attackDamage}");
             Console.WriteLine(description);
-            Console.WriteLine($"Cost: {cost}");
+            Console.WriteLine($"Cost: {Cost}");
         }
         //damages the enemy bloon, second parameter is just there for the override
         public virtual void Attack(Bloon target, Bloon target2)
@@ -72,7 +72,7 @@ namespace Monkeys
             Console.WriteLine($"Type: {name}");
             Console.WriteLine($"Damage: {attackDamage}");
             Console.WriteLine(description);
-            Console.WriteLine($"Cost: {cost}");
+            Console.WriteLine($"Cost: {Cost}");
             Console.ResetColor();
         }
 //displays name in a colro

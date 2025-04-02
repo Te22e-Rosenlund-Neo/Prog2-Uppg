@@ -1,6 +1,7 @@
 ﻿using Monkeys;
 using Balloons;
 using Rounds;
+using Shops;
 
 //creates different monkeys player can use
 Monkey pilApa = new Monkey("Pilapa", 1, 1, 2, "Single target killing");
@@ -8,7 +9,7 @@ MultiAttMonkey kanon = new MultiAttMonkey("kanon", 1, 1, 5, "Attacks 2 enemies a
 Monkey isApa = new SlowMoney("IsApa", 0, 1, 2, 4, "Slows enemy bloons down");
 Monkey stålApa = new Monkey("StålApa", 8, 2, 10, "High damage single target");
 
-float money = 10f;
+Shop<Monkey> shop = new Shop<Monkey>(new List<Monkey>{pilApa,kanon,isApa,stålApa}, 10);
 int health = 10;
 
 List<Monkey> allMonkeys = new(){
@@ -134,7 +135,7 @@ while (gameOn)
             }
             //we see if number of enemies has decresed, and increase money per kileld bloon
             int amount = enemies - attackingBloons.Count;
-            money += amount * 1f;
+            shop.moneyChange(amount * 1);
 
             if (attackingBloons.Count == 0)
             {
@@ -181,11 +182,13 @@ while (gameOn)
 
 
             //calls the shop where player may buy one monkey if they have enough money
-            var shopresult = ShopSystem(allMonkeys);
+            var shopresult = shop.BuyItem();
 
             if (shopresult != null)
             {
+                if(shopresult is Monkey){
                 myMonkeys.Add(shopresult);
+                }
             }
         }
 
@@ -209,46 +212,48 @@ while (gameOn)
 }
 
 //You can buy a monkey with the money u have, or u can chose not to (returns null), returns chosen monkey
-Monkey? ShopSystem(List<Monkey> allMonkeys)
-{
+// Monkey? ShopSystem(List<Monkey> allMonkeys)
+// {
 
-    Console.Clear();
+//     Console.Clear();
 
-    List<string> choices = new List<string>() { "0", "1", "2", "3", "4", "n" };
-    Console.WriteLine(@"MONKEY - SHOP");
-    Console.WriteLine("What monkey would u like?");
-    Console.WriteLine($"Your Money: {money}");
-    Console.WriteLine();
-    //displays all monkeys
-    for (int i = 0; i < allMonkeys.Count; i++)
-    {
-        Console.WriteLine("Index:" + (i + 1));
-        allMonkeys[i].ShowStats();
-        Console.WriteLine("------------------------");
-    }
-    string answer;
-    //player can chose to buy or not to buy, 
-    while (true)
-    {
-        Console.WriteLine("please enter a valid choice that u can afford!: (or n for none)");
-        answer = Console.ReadLine() ?? "";
+//     List<string> choices = new List<string>() { "0", "1", "2", "3", "4", "n" };
+//     Console.WriteLine(@"MONKEY - SHOP");
+//     Console.WriteLine("What monkey would u like?");
+//     Console.WriteLine($"Your Money: {shop.money}");
+//     Console.WriteLine();
+//     //displays all monkeys
+//     for (int i = 0; i < allMonkeys.Count; i++)
+//     {
+//         Console.WriteLine("Index:" + (i + 1));
+//         allMonkeys[i].ShowStats();
+//         Console.WriteLine("------------------------");
+//     }
 
-        if (answer.ToLower() == "n")
-        {
-            return null;
-        }
-        else if (choices.Contains(answer.ToLower()))
-        {
-            if (allMonkeys[Convert.ToInt32(answer) - 1].cost <= money)
-            {
-                money -= allMonkeys[Convert.ToInt32(answer) - 1].cost;
-                Monkey chosen = allMonkeys[Convert.ToInt32(answer) - 1];
-                return chosen;
-            }
-        }
+    
+//     string answer;
+//     //player can chose to buy or not to buy, 
+//     while (true)
+//     {
+//         Console.WriteLine("please enter a valid choice that u can afford!: (or n for none)");
+//         answer = Console.ReadLine() ?? "";
 
-    }
-}
+//         if (answer.ToLower() == "n")
+//         {
+//             return null;
+//         }
+//         else if (choices.Contains(answer.ToLower()))
+//         {
+//             if (allMonkeys[Convert.ToInt32(answer) - 1].Cost <= money)
+//             {
+//                 money -= allMonkeys[Convert.ToInt32(answer) - 1].Cost;
+//                 Monkey chosen = allMonkeys[Convert.ToInt32(answer) - 1];
+//                 return chosen;
+//             }
+//         }
+
+//     }
+// }
 
 //turns written text into colored text
 void WriteColoredText(string message, ConsoleColor color)

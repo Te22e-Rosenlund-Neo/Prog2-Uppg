@@ -1,8 +1,13 @@
 {
   "version": 2,
-  "dgSpecHash": "j4iM+2h3dlQ=",
+  "dgSpecHash": "P1m16MF1vFE=",
   "success": true,
-  "projectFilePath": "C:\\Users\\neo.rosenlund\\Documents\\GymArbete\\Prog2-Uppg\\Prog2Upgg\\Prog2Upgg.csproj",
-  "expectedPackageFiles": [],
+  "projectFilePath": "C:\\Users\\erikr\\OneDrive\\Dokument\\personal websiter\\Prog2-Uppg\\Prog2Upgg\\Prog2Upgg.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\erikr\\.nuget\\packages\\microsoft.netcore.app.ref\\8.0.13\\microsoft.netcore.app.ref.8.0.13.nupkg.sha512",
+    "C:\\Users\\erikr\\.nuget\\packages\\microsoft.windowsdesktop.app.ref\\8.0.13\\microsoft.windowsdesktop.app.ref.8.0.13.nupkg.sha512",
+    "C:\\Users\\erikr\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\8.0.13\\microsoft.aspnetcore.app.ref.8.0.13.nupkg.sha512",
+    "C:\\Users\\erikr\\.nuget\\packages\\microsoft.netcore.app.host.win-x64\\8.0.13\\microsoft.netcore.app.host.win-x64.8.0.13.nupkg.sha512"
+  ],
   "logs": []
 }

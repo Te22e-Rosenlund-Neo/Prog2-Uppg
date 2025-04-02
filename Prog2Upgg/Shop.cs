@@ -1,45 +1,65 @@
-namespace Shops{
+namespace Shops
+{
 
-public class Shop<T> where T : Ibuyable{
+    public class Shop<T> where T : IBuyable
+    {
 
-    private List<T> itemsForSale;
-    private int money;
+        private List<T> itemsForSale;
+        public int money {get; set;} = 10;
 
 
-    public Shop(List<T> itemsForSale, int money){
-        this.itemsForSale = itemsForSale;
-        this.money = money;
-    }
+        public Shop(List<T> itemsForSale, int money)
+        {
+            this.itemsForSale = itemsForSale;
+            this.money = money;
+        }
 
-    public T? BuyItem(){
+        public void moneyChange(int Change){
+            money += Change;
+        }
+        //money is an issue?
+        public T? BuyItem()
+        {
 
-        Console.Clear();
-        Console.WriteLine("Shop");
-        Console.WriteLine($"your money: {money}");
+            Console.Clear();
+            Console.WriteLine("Shop");
+            Console.WriteLine($"your money: {money}");
+            Console.WriteLine();
+            Console.WriteLine("Choose an item writing it's index or exit by pressin 'e'");
 
-        for(int i = 0; i < itemsForSale.Count; i++){
-            Console.WriteLine("Choose an item or exit by pressin 'e'");
-            string answer = Console.ReadLine() ?? "";
-
-            if(answer.ToLower() == "e"){
-                return null;
+            for (int i = 0; i < itemsForSale.Count; i++)
+            {
+                Console.WriteLine($"Index: {i + 1}");
+                itemsForSale[i].ShowStats();
+                Console.WriteLine("------------------------");
             }
 
-            if(int.TryParse(answer, out int choice)){
-                if(choice > 0 && choice <= itemsForSale.Count){
-                    T selectedItem = itemsForSale[choice - 1];
-                    if(money >= selectedItem.)
+            string answer;
+            while (true)
+            {
+                Console.WriteLine("Please enter a valid choice");
+                answer = Console.ReadLine() ?? "";
 
+                if (answer.ToLower() == "n")
+                {
+                    return default;
+                }
+                if (int.TryParse(answer, out int temp))
+                {
+                    int indexChosen = Convert.ToInt32(answer) - 1;
+                    if (indexChosen > 0 && indexChosen < itemsForSale.Count)
+                    {
+                        T item = itemsForSale[indexChosen];
+                        if (item.Cost <= money)
+                        {
+                            money -= item.Cost;
+                            return item;
+                        }
+                    }
                 }
             }
         }
     }
-
-
-
-
-
 }
 
 
-}
