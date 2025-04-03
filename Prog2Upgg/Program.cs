@@ -2,22 +2,28 @@
 using Balloons;
 using Rounds;
 using Shops;
+using Upgrade;
 
 //creates different monkeys player can use
 Monkey pilApa = new Monkey("Pilapa", 1, 1, 2, "Single target killing");
-MultiAttMonkey kanon = new MultiAttMonkey("kanon", 1, 1, 5, "Attacks 2 enemies at once");
-Monkey isApa = new SlowMoney("IsApa", 0, 1, 2, 4, "Slows enemy bloons down");
+Monkey kanon = new MultiAttMonkey("kanon", 1, 1, 5, "Attacks 2 enemies at once");
+EffMonkey isApa = new SlowMoney("IsApa", 0, 1, 2, 4, "Slows enemy bloons down");
 Monkey stålApa = new Monkey("StålApa", 8, 2, 10, "High damage single target");
+Upgrades strengthUp = new Upgrades("Strength - upgrade", 1, 0, 2);
+Upgrades effectUp = new Upgrades("Effect - upgrade", 0, 2, 2);
 
-Shop<Monkey> shop = new Shop<Monkey>(new List<Monkey>{pilApa,kanon,isApa,stålApa}, 10);
-int health = 10;
 
-List<Monkey> allMonkeys = new(){
+
+List<IBuyable> allMonkeys = new(){
     pilApa,
     kanon,
     isApa,
     stålApa
 };
+Shop<IBuyable> shop = new Shop<IBuyable>(10);
+shop.AddItemList(allMonkeys);
+shop.AddItemList(new List<IBuyable>(){strengthUp, effectUp});
+int health = 10;
 
 bool gameOn = true;
 
@@ -186,8 +192,11 @@ while (gameOn)
 
             if (shopresult != null)
             {
-                if(shopresult is Monkey){
-                myMonkeys.Add(shopresult);
+                if(shopresult is Monkey monkey){
+                myMonkeys.Add(monkey);
+                }
+                if(shopresult is Upgrades upgrade){
+                    upgrade.ApplyUpgrade(myMonkeys);
                 }
             }
         }

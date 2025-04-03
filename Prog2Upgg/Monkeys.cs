@@ -7,7 +7,7 @@ namespace Monkeys
     {
 
         private string name;
-        private int attackDamage;
+        public int attackDamage {get; set;}
         private int attackSpeed;
         public int Cost { get; set;}
         public string description { get; set;}
@@ -25,7 +25,7 @@ namespace Monkeys
         //shows default information about the monkey for the shop
         public virtual void ShowStats()
         {
-            Console.WriteLine($"Type: {name}");
+            Console.WriteLine($"Monkey Type: {name}");
             Console.WriteLine($"Damage: {attackDamage}");
             Console.WriteLine(description);
             Console.WriteLine($"Cost: {Cost}");
@@ -58,7 +58,7 @@ namespace Monkeys
     //Class used to change colors of monkeys that dont just simply attack, but has an effect
     class EffMonkey : Monkey
     {
-        string name = "";
+        string name;
         int attackDamage;
         public EffMonkey(string name, int attackDamage, int attackSpeed, int cost, string description) : base(name, attackDamage, attackSpeed, cost, description)
         {
@@ -111,15 +111,15 @@ namespace Monkeys
 
     class SlowMoney : EffMonkey
     {
-        int slowAmount;
-        public SlowMoney(string name, int attackDamage, int attackSpeed, int slow, int cost, string description) : base(name, attackDamage, attackSpeed, cost, description)
+        public int effectAmount {get; set;}
+        public SlowMoney(string name, int attackDamage, int attackSpeed, int effectC, int cost, string description) : base(name, attackDamage, attackSpeed, cost, description)
         {
-            slowAmount = slow;
+            effectAmount = effectC;
         }
         //makes enemy bloon take longer to reach its destination (before it can hurt the player)
         public override void ApplyEffect(Bloon target)
         {
-            target.ChangeCoolDown(slowAmount);
+            target.ChangeCoolDown(effectAmount);
 
         }
 

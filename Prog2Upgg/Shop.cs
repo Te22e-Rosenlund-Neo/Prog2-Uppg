@@ -4,19 +4,26 @@ namespace Shops
     public class Shop<T> where T : IBuyable
     {
 
-        private List<T> itemsForSale;
-        public int money {get; set;} = 10;
+        private List<T> itemsForSale = new List<T>();
+        public int money { get; set; }
 
 
-        public Shop(List<T> itemsForSale, int money)
+        public Shop(int money)
         {
-            this.itemsForSale = itemsForSale;
             this.money = money;
         }
 
-        public void moneyChange(int Change){
+        public void AddItemList(List<T> list){
+            foreach(T item in list){
+                itemsForSale.Add(item);
+            }
+        }
+
+        public void moneyChange(int Change)
+        {
             money += Change;
         }
+
         //money is an issue?
         public T? BuyItem()
         {
@@ -47,7 +54,7 @@ namespace Shops
                 if (int.TryParse(answer, out int temp))
                 {
                     int indexChosen = Convert.ToInt32(answer) - 1;
-                    if (indexChosen > 0 && indexChosen < itemsForSale.Count)
+                    if (indexChosen >= 0 && indexChosen < itemsForSale.Count)
                     {
                         T item = itemsForSale[indexChosen];
                         if (item.Cost <= money)

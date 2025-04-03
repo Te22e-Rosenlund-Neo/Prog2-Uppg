@@ -28,3 +28,18 @@ C:\Users\erikr\OneDrive\Dokument\personal websiter\Prog2-Uppg\Prog2Upgg\obj\Debu
 C:\Users\erikr\OneDrive\Dokument\personal websiter\Prog2-Uppg\Prog2Upgg\obj\Debug\net8.0\Prog2Upgg.pdb
 C:\Users\erikr\OneDrive\Dokument\personal websiter\Prog2-Uppg\Prog2Upgg\obj\Debug\net8.0\Prog2Upgg.genruntimeconfig.cache
 C:\Users\erikr\OneDrive\Dokument\personal websiter\Prog2-Uppg\Prog2Upgg\obj\Debug\net8.0\ref\Prog2Upgg.dll
+C:\Users\neo.rosenlund\Documents\GymArbete\Prog2-Uppg\Prog2Upgg\bin\Debug\net8.0\Prog2Upgg.exe
+C:\Users\neo.rosenlund\Documents\GymArbete\Prog2-Uppg\Prog2Upgg\bin\Debug\net8.0\Prog2Upgg.deps.json
+C:\Users\neo.rosenlund\Documents\GymArbete\Prog2-Uppg\Prog2Upgg\bin\Debug\net8.0\Prog2Upgg.runtimeconfig.json
+C:\Users\neo.rosenlund\Documents\GymArbete\Prog2-Uppg\Prog2Upgg\bin\Debug\net8.0\Prog2Upgg.dll
+C:\Users\neo.rosenlund\Documents\GymArbete\Prog2-Uppg\Prog2Upgg\bin\Debug\net8.0\Prog2Upgg.pdb
+C:\Users\neo.rosenlund\Documents\GymArbete\Prog2-Uppg\Prog2Upgg\obj\Debug\net8.0\Prog2Upgg.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\neo.rosenlund\Documents\GymArbete\Prog2-Uppg\Prog2Upgg\obj\Debug\net8.0\Prog2Upgg.AssemblyInfoInputs.cache
+C:\Users\neo.rosenlund\Documents\GymArbete\Prog2-Uppg\Prog2Upgg\obj\Debug\net8.0\Prog2Upgg.AssemblyInfo.cs
+C:\Users\neo.rosenlund\Documents\GymArbete\Prog2-Uppg\Prog2Upgg\obj\Debug\net8.0\Prog2Upgg.csproj.CoreCompileInputs.cache
+C:\Users\neo.rosenlund\Documents\GymArbete\Prog2-Uppg\Prog2Upgg\obj\Debug\net8.0\Prog2Upgg.sourcelink.json
+C:\Users\neo.rosenlund\Documents\GymArbete\Prog2-Uppg\Prog2Upgg\obj\Debug\net8.0\Prog2Upgg.dll
+C:\Users\neo.rosenlund\Documents\GymArbete\Prog2-Uppg\Prog2Upgg\obj\Debug\net8.0\refint\Prog2Upgg.dll
+C:\Users\neo.rosenlund\Documents\GymArbete\Prog2-Uppg\Prog2Upgg\obj\Debug\net8.0\Prog2Upgg.pdb
+C:\Users\neo.rosenlund\Documents\GymArbete\Prog2-Uppg\Prog2Upgg\obj\Debug\net8.0\Prog2Upgg.genruntimeconfig.cache
+C:\Users\neo.rosenlund\Documents\GymArbete\Prog2-Uppg\Prog2Upgg\obj\Debug\net8.0\ref\Prog2Upgg.dll

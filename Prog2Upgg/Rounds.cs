@@ -69,7 +69,7 @@ namespace Rounds
             List<Bloon> bloons = new List<Bloon>();
             for (int i = 0; i < redCount; i++)
             {
-                Bloon redBloon = new Bloon("RedBloon", 20, 1, 2, ConsoleColor.Red);
+                Bloon redBloon = new Bloon("RedBloon", 2, 1, 2, ConsoleColor.Red);
                 bloons.Add(redBloon);
             }
             for (int i = 0; i < yellowCount; i++)
