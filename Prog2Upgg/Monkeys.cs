@@ -7,10 +7,10 @@ namespace Monkeys
     {
 
         private string name;
-        public int attackDamage {get; set;}
+        public int attackDamage { get; set; }
         private int attackSpeed;
-        public int Cost { get; set;}
-        public string description { get; set;}
+        public int Cost { get; set; }
+        public string description { get; set; }
 
         public Monkey(string name, int attackDamage, int attackSpeed, int cost, string description)
         {
@@ -65,7 +65,7 @@ namespace Monkeys
             this.name = name;
             this.attackDamage = attackDamage;
         }
-//shows simple stats in special color
+        //shows simple stats in special color
         public override void ShowStats()
         {
             Console.ForegroundColor = ConsoleColor.Yellow;
@@ -75,7 +75,7 @@ namespace Monkeys
             Console.WriteLine($"Cost: {Cost}");
             Console.ResetColor();
         }
-//displays name in a colro
+        //displays name in a color
         public override void GetName(int option)
         {
             if (option == 1)
@@ -91,6 +91,7 @@ namespace Monkeys
         }
     }
 
+    //class which allows enemy to target 2 bloons at once
     class MultiAttMonkey : EffMonkey
     {
 
@@ -109,9 +110,10 @@ namespace Monkeys
         }
     }
 
+    //monkey that has purpose of slowing down enemy
     class SlowMoney : EffMonkey
     {
-        public int effectAmount {get; set;}
+        public int effectAmount { get; set; }
         public SlowMoney(string name, int attackDamage, int attackSpeed, int effectC, int cost, string description) : base(name, attackDamage, attackSpeed, cost, description)
         {
             effectAmount = effectC;

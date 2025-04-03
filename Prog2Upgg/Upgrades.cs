@@ -2,6 +2,7 @@ using Monkeys;
 namespace Upgrade
 {
 
+    //another item for the shop, it upgrades existing monkeys abilites
     class Upgrades : IBuyable
     {
 
@@ -19,7 +20,7 @@ namespace Upgrade
         }
 
 
-
+        //displays information about it (a must bc of the Ibuyable interface)
         public void ShowStats()
         {
             Console.WriteLine($"UpgradeType: {name}");
@@ -28,11 +29,13 @@ namespace Upgrade
             Console.WriteLine($"Cost: {Cost}");
         }
 
+        //method that takes in all player monkeys, allows them to select which one to use the upgrade on
         public void ApplyUpgrade(List<Monkey> monkeys)
         {
             Console.Clear();
             Console.WriteLine("Please select the monkey u wanna upgrade by typing the index;");
 
+            //displays all monkeys
             for (int i = 0; i < monkeys.Count; i++)
             {
                 Console.WriteLine($"{i + 1}: ");
@@ -42,6 +45,7 @@ namespace Upgrade
 
             while (true)
             {
+                //checks so answer is an int, and is within the monkey list perimiters
                 Console.WriteLine("Type a appropriate value");
 
                 string answer = Console.ReadLine() ?? "";
@@ -51,28 +55,24 @@ namespace Upgrade
                     int intAnsCorrected = intAnswer - 1;
                     if (intAnsCorrected >= 0 && intAnsCorrected < monkeys.Count)
                     {
+                        //UGLY CODE: this checks what monkey type has been chosen, as only certain monkeys have a effect that can be upgraded
                         if (monkeys[intAnsCorrected] is SlowMoney effMonkey)
                         {
+                            //casts choen monkey to effmonkey and applies changes
                             effMonkey.attackDamage += damageIncrease;
                             effMonkey.effectAmount += effectIncrease;
                             break;
                         }
-                        else if (monkeys[intAnsCorrected] is Monkey normalMonkey)
+                        else
                         {
-                            normalMonkey.attackDamage += damageIncrease;
-                            break;
-
-                        }
-                        else if (monkeys[intAnsCorrected] is MultiAttMonkey multMonkey)
-                        {
-                            multMonkey.attackDamage += damageIncrease;
-                            break;
+                            //all other monkeys cant have an effect applied to it, if player chose invalid to upgrade, you just loose the ability.
+                            monkeys[intAnsCorrected].attackDamage += damageIncrease;
                         }
                     }
+
                 }
-
             }
-        }
 
+        }
     }
 }

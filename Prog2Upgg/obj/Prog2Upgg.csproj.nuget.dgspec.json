@@ -1,27 +1,25 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\neo.rosenlund\\Documents\\GymArbete\\Prog2-Uppg\\Prog2Upgg\\Prog2Upgg.csproj": {}
+    "C:\\Users\\erikr\\OneDrive\\Dokument\\personal websiter\\Prog2-Uppg\\Prog2Upgg\\Prog2Upgg.csproj": {}
   },
   "projects": {
-    "C:\\Users\\neo.rosenlund\\Documents\\GymArbete\\Prog2-Uppg\\Prog2Upgg\\Prog2Upgg.csproj": {
+    "C:\\Users\\erikr\\OneDrive\\Dokument\\personal websiter\\Prog2-Uppg\\Prog2Upgg\\Prog2Upgg.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\neo.rosenlund\\Documents\\GymArbete\\Prog2-Uppg\\Prog2Upgg\\Prog2Upgg.csproj",
+        "projectUniqueName": "C:\\Users\\erikr\\OneDrive\\Dokument\\personal websiter\\Prog2-Uppg\\Prog2Upgg\\Prog2Upgg.csproj",
         "projectName": "Prog2Upgg",
-        "projectPath": "C:\\Users\\neo.rosenlund\\Documents\\GymArbete\\Prog2-Uppg\\Prog2Upgg\\Prog2Upgg.csproj",
-        "packagesPath": "C:\\Users\\neo.rosenlund\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\neo.rosenlund\\Documents\\GymArbete\\Prog2-Uppg\\Prog2Upgg\\obj\\",
+        "projectPath": "C:\\Users\\erikr\\OneDrive\\Dokument\\personal websiter\\Prog2-Uppg\\Prog2Upgg\\Prog2Upgg.csproj",
+        "packagesPath": "C:\\Users\\erikr\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\erikr\\OneDrive\\Dokument\\personal websiter\\Prog2-Uppg\\Prog2Upgg\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\neo.rosenlund\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "C:\\Users\\erikr\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -39,7 +37,8 @@
           "enableAudit": "true",
           "auditLevel": "low",
           "auditMode": "direct"
-        }
+        },
+        "SdkAnalysisLevel": "9.0.200"
       },
       "frameworks": {
         "net8.0": {
@@ -55,12 +54,30 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
+          "downloadDependencies": [
+            {
+              "name": "Microsoft.AspNetCore.App.Ref",
+              "version": "[8.0.13, 8.0.13]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Host.win-x64",
+              "version": "[8.0.13, 8.0.13]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Ref",
+              "version": "[8.0.13, 8.0.13]"
+            },
+            {
+              "name": "Microsoft.WindowsDesktop.App.Ref",
+              "version": "[8.0.13, 8.0.13]"
+            }
+          ],
           "frameworkReferences": {
             "Microsoft.NETCore.App": {
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.404/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.200/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

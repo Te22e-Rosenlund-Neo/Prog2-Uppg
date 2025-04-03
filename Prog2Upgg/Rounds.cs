@@ -39,6 +39,7 @@ namespace Rounds
             List<Round> allRounds = new();
             while (true)
             {
+                //checks if input was within given range (1-20)
                 Console.WriteLine("enter a number between 1 and 20");
                 response = Console.ReadLine() ?? "";
 
@@ -63,10 +64,15 @@ namespace Rounds
             return allRounds;
         }
 
+        //method that generates bloons:
         public List<Bloon> GenerateBloons()
         {
 
             List<Bloon> bloons = new List<Bloon>();
+
+            //checks how many of each type it should have
+            //creates amount of bloons of each type
+            //adds them to the total bloon list of that round
             for (int i = 0; i < redCount; i++)
             {
                 Bloon redBloon = new Bloon("RedBloon", 2, 1, 2, ConsoleColor.Red);
@@ -94,7 +100,7 @@ namespace Rounds
             }
             for (int i = 0; i < blueMCount; i++)
             {
-                Bloon MOAB = new Bloon("Moab", 20, 10, 40, ConsoleColor.DarkBlue);
+                Moab MOAB = new Moab("Moab", 20, 10, 40, ConsoleColor.DarkBlue);
                 bloons.Add(MOAB);
             }
             return bloons;

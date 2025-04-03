@@ -20,9 +20,11 @@ List<IBuyable> allMonkeys = new(){
     isApa,
     stålApa
 };
+
+//instantiates a shop using an interface and adds items to the list of sellable items inside the shop
 Shop<IBuyable> shop = new Shop<IBuyable>(10);
 shop.AddItemList(allMonkeys);
-shop.AddItemList(new List<IBuyable>(){strengthUp, effectUp});
+shop.AddItemList(new List<IBuyable>() { strengthUp, effectUp });
 int health = 10;
 
 bool gameOn = true;
@@ -43,6 +45,7 @@ while (gameOn)
         pilApa, kanon, isApa
     };
 
+    //basic info on how to play the game
     int currentRound = 0;
     Console.Clear();
     Console.WriteLine($"Your goal is to protect your base from getting destroyed, u start with {health} health");
@@ -159,7 +162,7 @@ while (gameOn)
                 Bloon bl = attackingBloons[i];
                 bl.ChangeCoolDown(-1);
 
-                //damages base
+                //damages player
                 if (bl.GiveSpeed() <= 0)
                 {
                     Console.WriteLine($"A bloon of type {bl.GetName()} hit u, u took {bl.Attack()} amount of damage");
@@ -192,20 +195,23 @@ while (gameOn)
 
             if (shopresult != null)
             {
-                if(shopresult is Monkey monkey){
-                myMonkeys.Add(monkey);
+                if (shopresult is Monkey monkey)
+                {
+                    myMonkeys.Add(monkey);
                 }
-                if(shopresult is Upgrades upgrade){
+                if (shopresult is Upgrades upgrade)
+                {
                     upgrade.ApplyUpgrade(myMonkeys);
                 }
             }
         }
-
+        //gives feedback for winning and checks if we should have died
         Console.WriteLine("Round:   " + (currentRound + 1) + " Finished");
         Console.ReadLine();
         currentRound += 1;
 
-        if(health <= 0){
+        if (health <= 0)
+        {
             break;
         }
         if (currentRound > rounds.Count - 1)
@@ -215,54 +221,10 @@ while (gameOn)
         }
     }
 
-    
+
     Console.ReadLine();
     Console.Clear();
 }
-
-//You can buy a monkey with the money u have, or u can chose not to (returns null), returns chosen monkey
-// Monkey? ShopSystem(List<Monkey> allMonkeys)
-// {
-
-//     Console.Clear();
-
-//     List<string> choices = new List<string>() { "0", "1", "2", "3", "4", "n" };
-//     Console.WriteLine(@"MONKEY - SHOP");
-//     Console.WriteLine("What monkey would u like?");
-//     Console.WriteLine($"Your Money: {shop.money}");
-//     Console.WriteLine();
-//     //displays all monkeys
-//     for (int i = 0; i < allMonkeys.Count; i++)
-//     {
-//         Console.WriteLine("Index:" + (i + 1));
-//         allMonkeys[i].ShowStats();
-//         Console.WriteLine("------------------------");
-//     }
-
-    
-//     string answer;
-//     //player can chose to buy or not to buy, 
-//     while (true)
-//     {
-//         Console.WriteLine("please enter a valid choice that u can afford!: (or n for none)");
-//         answer = Console.ReadLine() ?? "";
-
-//         if (answer.ToLower() == "n")
-//         {
-//             return null;
-//         }
-//         else if (choices.Contains(answer.ToLower()))
-//         {
-//             if (allMonkeys[Convert.ToInt32(answer) - 1].Cost <= money)
-//             {
-//                 money -= allMonkeys[Convert.ToInt32(answer) - 1].Cost;
-//                 Monkey chosen = allMonkeys[Convert.ToInt32(answer) - 1];
-//                 return chosen;
-//             }
-//         }
-
-//     }
-// }
 
 //turns written text into colored text
 void WriteColoredText(string message, ConsoleColor color)
