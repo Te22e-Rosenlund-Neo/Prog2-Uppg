@@ -189,10 +189,7 @@ while (gameOn)
             }
 
 
-
-            //calls the shop where player may buy one monkey if they have enough money
-
-
+//loop that calls the shop everytime the player says yes, which allows player to buy more than 1 item
             while (true)
             {
                 Console.Clear();
@@ -200,8 +197,9 @@ while (gameOn)
                 string answer = Console.ReadLine() ?? "";
                 if (answer.ToLower() == "y")
                 {
+//returns an item from shop
                     var shopresult = shop.BuyItem();
-
+//checks what item was bought, if any, and applies it correctly
                     if (shopresult != null)
                     {
                         if (shopresult is Monkey monkey)
@@ -222,11 +220,12 @@ while (gameOn)
         Console.WriteLine("Round:   " + (currentRound + 1) + " Finished");
         Console.ReadLine();
         currentRound += 1;
-
+//death scnario
         if (health <= 0)
         {
             break;
         }
+//win scenario
         if (currentRound > rounds.Count - 1)
         {
             Console.WriteLine("YOU WON!!!");

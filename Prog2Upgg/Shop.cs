@@ -8,7 +8,7 @@ namespace Shops
         //list of items that is not specified to one specific item
         private List<T> itemsForSale = new List<T>();
         public int money { get; set; }
-        public int moneyPerBloon {get; protected set;} = 1;
+        public int moneyPerBloon { get; protected set; } = 1;
 
         //constructor
         public Shop(int money)
@@ -72,6 +72,10 @@ namespace Shops
                         {
                             money -= item.cost;
                             return item;
+                        }
+                        else
+                        {
+                            Console.WriteLine("You did not have enough money to buy this item!");
                         }
                     }
                 }
