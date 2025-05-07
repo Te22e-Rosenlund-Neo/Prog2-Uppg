@@ -8,6 +8,7 @@ namespace Shops
         //list of items that is not specified to one specific item
         private List<T> itemsForSale = new List<T>();
         public int money { get; set; }
+        public int moneyPerBloon {get; protected set;} = 1;
 
         //constructor
         public Shop(int money)
@@ -43,7 +44,9 @@ namespace Shops
             //Displays all buyable items
             for (int i = 0; i < itemsForSale.Count; i++)
             {
+                Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine($"Index: {i + 1}");
+                Console.ResetColor();
                 itemsForSale[i].ShowStats();
                 Console.WriteLine("------------------------");
             }
@@ -65,9 +68,9 @@ namespace Shops
                     {
                         //everything went well, we return chosen item and subtract money
                         T item = itemsForSale[indexChosen];
-                        if (item.Cost <= money)
+                        if (item.cost <= money)
                         {
-                            money -= item.Cost;
+                            money -= item.cost;
                             return item;
                         }
                     }

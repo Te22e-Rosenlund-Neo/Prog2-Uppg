@@ -9,14 +9,14 @@ namespace Upgrade
         private string name;
         private int damageIncrease;
         private int effectIncrease;
-        public int Cost { get; set; }
+        public int cost { get; set; }
 
         public Upgrades(string name, int dmgIncrease, int effIncrease, int cost)
         {
             this.name = name;
             damageIncrease = dmgIncrease;
             effectIncrease = effIncrease;
-            this.Cost = cost;
+            this.cost = cost;
         }
 
 
@@ -26,7 +26,7 @@ namespace Upgrade
             Console.WriteLine($"UpgradeType: {name}");
             Console.WriteLine($"Damage increase amount: {damageIncrease}");
             Console.WriteLine($"Effect increase amount: {effectIncrease}");
-            Console.WriteLine($"Cost: {Cost}");
+            Console.WriteLine($"Cost: {cost}");
         }
 
         //method that takes in all player monkeys, allows them to select which one to use the upgrade on
@@ -60,7 +60,7 @@ namespace Upgrade
                         {
                             //casts choen monkey to effmonkey and applies changes
                             effMonkey.attackDamage += damageIncrease;
-                            effMonkey.effectAmount += effectIncrease;
+                            effMonkey.ChangeEffAmount(effectIncrease);
                             break;
                         }
                         else

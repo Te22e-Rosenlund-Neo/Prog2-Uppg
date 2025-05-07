@@ -144,7 +144,7 @@ while (gameOn)
             }
             //we see if number of enemies has decresed, and increase money per kileld bloon
             int amount = enemies - attackingBloons.Count;
-            shop.moneyChange(amount * 1);
+            shop.moneyChange(amount * shop.moneyPerBloon);
 
             if (attackingBloons.Count == 0)
             {
@@ -191,17 +191,30 @@ while (gameOn)
 
 
             //calls the shop where player may buy one monkey if they have enough money
-            var shopresult = shop.BuyItem();
 
-            if (shopresult != null)
+
+            while (true)
             {
-                if (shopresult is Monkey monkey)
+                Console.Clear();
+                Console.WriteLine("Would you like to buy an item? (y for yes, any other key for no)");
+                string answer = Console.ReadLine() ?? "";
+                if (answer.ToLower() == "y")
                 {
-                    myMonkeys.Add(monkey);
-                }
-                if (shopresult is Upgrades upgrade)
-                {
-                    upgrade.ApplyUpgrade(myMonkeys);
+                    var shopresult = shop.BuyItem();
+
+                    if (shopresult != null)
+                    {
+                        if (shopresult is Monkey monkey)
+                        {
+                            myMonkeys.Add(monkey);
+                        }
+                        if (shopresult is Upgrades upgrade)
+                        {
+                            upgrade.ApplyUpgrade(myMonkeys);
+                        }
+                    }
+                }else{
+                    break;
                 }
             }
         }

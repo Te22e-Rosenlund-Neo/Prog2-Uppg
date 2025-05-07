@@ -19,6 +19,7 @@ namespace Rounds
         public int whiteCount { get; set; }
         public int rainbowCount { get; set; }
         public int blueMCount { get; set; }
+       
 
         //how many of each bloon that exists. Math.max ensures we cant have below 0 of them
         public Round(int red, int yellow, int black, int white, int rainbow, int blueM)
@@ -80,7 +81,7 @@ namespace Rounds
             }
             for (int i = 0; i < yellowCount; i++)
             {
-                Bloon yellowBloon = new Bloon("YellowBloon", 1, 1, 3, ConsoleColor.Yellow);
+                Bloon yellowBloon = new Bloon("YellowBloon", 1, 2, 3, ConsoleColor.Yellow);
                 bloons.Add(yellowBloon);
             }
             for (int i = 0; i < blackCount; i++)

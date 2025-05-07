@@ -1,3 +1,5 @@
+using Shops;
+
 namespace Balloons
 {
     //redbloon, yellow bloon, black bloon, white bloon, rainbow bloon, blue moab
@@ -58,10 +60,12 @@ namespace Balloons
         public virtual List<Bloon> CheckForRemoval(List<Bloon> AllBloons)
         {
 
+
             if (health <= 0)
             {
                 AllBloons.RemoveAt(AllBloons.IndexOf(this));
                 Console.WriteLine("You killed a bloon, press enter to confirm");
+
                 Console.ReadLine();
             }
             return AllBloons;

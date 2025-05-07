@@ -9,8 +9,9 @@ namespace Monkeys
         private string name;
         public int attackDamage { get; set; }
         private int attackSpeed;
-        public int Cost { get; set; }
+        public int cost { get; set; }
         public string description { get; set; }
+        public Bloon användsInteMenÄrHärInSpirit = new Bloon("test", 1, 1, 1, ConsoleColor.Black);
 
         public Monkey(string name, int attackDamage, int attackSpeed, int cost, string description)
         {
@@ -18,7 +19,7 @@ namespace Monkeys
             this.name = name;
             this.attackSpeed = attackSpeed;
             this.attackDamage = attackDamage;
-            this.Cost = cost;
+            this.cost = cost;
             this.description = description;
 
         }
@@ -28,7 +29,7 @@ namespace Monkeys
             Console.WriteLine($"Monkey Type: {name}");
             Console.WriteLine($"Damage: {attackDamage}");
             Console.WriteLine(description);
-            Console.WriteLine($"Cost: {Cost}");
+            Console.WriteLine($"Cost: {cost}");
         }
         //damages the enemy bloon, second parameter is just there for the override
         public virtual void Attack(Bloon target, Bloon target2)
@@ -58,8 +59,8 @@ namespace Monkeys
     //Class used to change colors of monkeys that dont just simply attack, but has an effect
     class EffMonkey : Monkey
     {
-        string name;
-        int attackDamage;
+        private string name;
+        private int attackDamage;
         public EffMonkey(string name, int attackDamage, int attackSpeed, int cost, string description) : base(name, attackDamage, attackSpeed, cost, description)
         {
             this.name = name;
@@ -72,7 +73,7 @@ namespace Monkeys
             Console.WriteLine($"Type: {name}");
             Console.WriteLine($"Damage: {attackDamage}");
             Console.WriteLine(description);
-            Console.WriteLine($"Cost: {Cost}");
+            Console.WriteLine($"Cost: {cost}");
             Console.ResetColor();
         }
         //displays name in a color
@@ -113,10 +114,15 @@ namespace Monkeys
     //monkey that has purpose of slowing down enemy
     class SlowMoney : EffMonkey
     {
-        public int effectAmount { get; set; }
+        private int effectAmount;
         public SlowMoney(string name, int attackDamage, int attackSpeed, int effectC, int cost, string description) : base(name, attackDamage, attackSpeed, cost, description)
         {
             effectAmount = effectC;
+        }
+
+        public void ChangeEffAmount(int difference)
+        {
+            effectAmount += difference;
         }
         //makes enemy bloon take longer to reach its destination (before it can hurt the player)
         public override void ApplyEffect(Bloon target)
