@@ -8,7 +8,7 @@ namespace Monkeys
 
         private string name;
         public int attackDamage { get; set; }
-        private int attackSpeed;
+        public int attackSpeed { get; private set; }
         public int cost { get; set; }
         public string description { get; set; }
         public Bloon användsInteMenÄrHärInSpirit = new Bloon("test", 1, 1, 1, ConsoleColor.Black);
@@ -30,6 +30,10 @@ namespace Monkeys
             Console.WriteLine($"Damage: {attackDamage}");
             Console.WriteLine(description);
             Console.WriteLine($"Cost: {cost}");
+        }
+        public virtual Monkey CloneMe()
+        {
+            return new Monkey(this.name, this.attackDamage, this.attackSpeed, this.cost, this.description);
         }
         //damages the enemy bloon, second parameter is just there for the override
         public virtual void Attack(Bloon target, Bloon target2)
@@ -63,6 +67,11 @@ namespace Monkeys
         public EffMonkey(string name, int attackDamage, int attackSpeed, int cost, string description) : base(name, attackDamage, attackSpeed, cost, description)
         {
             this.name = name;
+        }
+
+        public override EffMonkey CloneMe()
+        {
+            return new EffMonkey(this.name, this.attackDamage, this.attackSpeed, this.cost, this.description);
         }
         //shows simple stats in special color
         public override void ShowStats()
@@ -120,6 +129,11 @@ namespace Monkeys
             this.name = name;
         }
 
+        public override SlowMoney CloneMe()
+        {
+            return new SlowMoney(this.name, this.attackDamage, this.attackSpeed, this.effectAmount, this.cost, this.description);
+        }
+
         public override void GetName(int option)
         {
             if (option == 1)
@@ -132,7 +146,7 @@ namespace Monkeys
             {
                 Console.WriteLine($"Who should {name} attack? (Effect: {effectAmount}) (write the number)");
             }
-        } 
+        }
 
         public void ChangeEffAmount(int difference)
         {

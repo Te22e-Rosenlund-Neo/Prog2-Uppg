@@ -203,7 +203,7 @@ while (gameOn)
                     {
                         if (shopresult is Monkey monkey)
                         {
-                            myMonkeys.Add(monkey);
+                            myMonkeys.Add(monkey.CloneMe());
                         }
                         if (shopresult is Upgrades upgrade)
                         {
