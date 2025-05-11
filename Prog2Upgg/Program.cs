@@ -70,7 +70,6 @@ while (gameOn)
             //u get to buy more towers
             Console.Clear();
             WriteColoredText($"Your base has {health} health left", ConsoleColor.Green);
-
             Console.Write($"Your towers: ");
             foreach (Monkey m in myMonkeys)
             {
@@ -88,7 +87,7 @@ while (gameOn)
                     blo.ShortDisplay();
 
                 }
-
+                Console.WriteLine("--------------------------------------------");
                 string response;
 
                 //Checks for input on who to attack

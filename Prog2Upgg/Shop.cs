@@ -40,6 +40,7 @@ namespace Shops
             Console.WriteLine($"your money: {money}");
             Console.WriteLine();
             Console.WriteLine("Choose an item writing it's index or exit by pressin 'e'");
+            Console.WriteLine("------------------------");
 
             //Displays all buyable items
             for (int i = 0; i < itemsForSale.Count; i++)
@@ -78,6 +79,14 @@ namespace Shops
                             Console.WriteLine("You did not have enough money to buy this item!");
                         }
                     }
+                    else
+                    {
+                        Console.WriteLine("Outside of index");
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("Was not an int!");
                 }
             }
         }

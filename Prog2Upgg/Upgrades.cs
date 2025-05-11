@@ -58,18 +58,39 @@ namespace Upgrade
                         //UGLY CODE: this checks what monkey type has been chosen, as only certain monkeys have a effect that can be upgraded
                         if (monkeys[intAnsCorrected] is SlowMoney effMonkey)
                         {
-                            //casts choen monkey to effmonkey and applies changes
-                            effMonkey.attackDamage += damageIncrease;
-                            effMonkey.ChangeEffAmount(effectIncrease);
-                            break;
+                            //we checked if we were an SlowMonkey, now we check if the upgrade thats being used is of type effect, otherwise it cant be applied!
+                            if (effectIncrease <= 0)
+                            {
+                                Console.WriteLine("You cannot apply an stregth to a damageless monkey!");
+                            }
+                            else
+                            {
+                                //casts choen monkey to effmonkey and applies changes
+                                effMonkey.attackDamage += damageIncrease;
+                                effMonkey.ChangeEffAmount(effectIncrease);
+                                break;
+                            }
                         }
                         else
                         {
-                            //all other monkeys cant have an effect applied to it, if player chose invalid to upgrade, you just loose the ability.
-                            monkeys[intAnsCorrected].attackDamage += damageIncrease;
+                            if (effectIncrease <= 0)
+                            {
+                                //all other monkeys cant have an effect applied to it, if player chose invalid to upgrade, this says no.
+                                monkeys[intAnsCorrected].attackDamage += damageIncrease;
+                                break;
+                            }
+                            else
+                            {
+                                Console.WriteLine("You cannot apply an effect to a effectless monkey!");
+                            }
+
                         }
                     }
 
+                }
+                else
+                {
+                    Console.WriteLine("Was not an int");
                 }
             }
 

@@ -60,18 +60,16 @@ namespace Monkeys
     class EffMonkey : Monkey
     {
         private string name;
-        private int attackDamage;
         public EffMonkey(string name, int attackDamage, int attackSpeed, int cost, string description) : base(name, attackDamage, attackSpeed, cost, description)
         {
             this.name = name;
-            this.attackDamage = attackDamage;
         }
         //shows simple stats in special color
         public override void ShowStats()
         {
             Console.ForegroundColor = ConsoleColor.Yellow;
             Console.WriteLine($"Type: {name}");
-            Console.WriteLine($"Damage: {attackDamage}");
+            Console.WriteLine($"Damage: {base.attackDamage}");
             Console.WriteLine(description);
             Console.WriteLine($"Cost: {cost}");
             Console.ResetColor();
@@ -115,10 +113,26 @@ namespace Monkeys
     class SlowMoney : EffMonkey
     {
         private int effectAmount;
+        private string name;
         public SlowMoney(string name, int attackDamage, int attackSpeed, int effectC, int cost, string description) : base(name, attackDamage, attackSpeed, cost, description)
         {
             effectAmount = effectC;
+            this.name = name;
         }
+
+        public override void GetName(int option)
+        {
+            if (option == 1)
+            {
+                Console.ForegroundColor = ConsoleColor.Yellow;
+                Console.Write($"{name} , ");
+                Console.ResetColor();
+            }
+            else
+            {
+                Console.WriteLine($"Who should {name} attack? (Effect: {effectAmount}) (write the number)");
+            }
+        } 
 
         public void ChangeEffAmount(int difference)
         {
