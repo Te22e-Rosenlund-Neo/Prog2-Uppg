@@ -1,4 +1,5 @@
 using Balloons;
+using Monkeys;
 namespace Rounds
 {
     class Round
@@ -19,7 +20,7 @@ namespace Rounds
         public int whiteCount { get; set; }
         public int rainbowCount { get; set; }
         public int blueMCount { get; set; }
-       
+
 
         //how many of each bloon that exists. Math.max ensures we cant have below 0 of them
         public Round(int red, int yellow, int black, int white, int rainbow, int blueM)
@@ -107,6 +108,100 @@ namespace Rounds
             return bloons;
         }
 
+        //this method handles checking for input, killing enemy bloons.
+        public (List<Monkey>, List<Bloon>) attackPhase(List<Monkey> myMonkeys, List<Bloon> attackingBloons)
+        {
+            foreach (Monkey m in myMonkeys)
+            {
+                //displays all bloons
+                foreach (Bloon blo in attackingBloons)
+                {
+                    blo.ShortDisplay();
 
+                }
+                Console.WriteLine("--------------------------------------------");
+                string response;
+
+                //Checks for input on who to attack
+                while (true)
+                {
+                    m.GetName(2);
+                    response = Console.ReadLine() ?? "";
+
+                    if (int.TryParse(response, out int x))
+                    {
+                        if (Convert.ToInt32(response) <= attackingBloons.Count && Convert.ToInt32(response) > 0)
+                        {
+                            break;
+                        }
+                    }
+                }
+                Bloon chosen = attackingBloons[Convert.ToInt32(response) - 1];
+                Bloon chosen2 = chosen;
+
+                //multi attack monkeys can only attack multiple if two or more enemies exist, here we check for that
+                if (attackingBloons.Count <= 1)
+                {
+                    m.Attack(chosen, chosen2);
+                    m.ApplyEffect(chosen);
+                }
+                else
+                {
+                    //if there is more than one, we check which the second target should be
+                    if (attackingBloons.ElementAtOrDefault(attackingBloons.IndexOf(chosen) + 1) != null)
+                    {
+                        chosen2 = attackingBloons[attackingBloons.IndexOf(chosen) + 1];
+                        m.Attack(chosen, chosen2);
+                        m.ApplyEffect(chosen);
+                        attackingBloons = chosen2.CheckForRemoval(attackingBloons);
+
+                    }
+                    else
+                    {
+                        chosen2 = attackingBloons[attackingBloons.IndexOf(chosen) - 1];
+                        m.Attack(chosen, chosen2);
+                        m.ApplyEffect(chosen);
+                        attackingBloons = chosen2.CheckForRemoval(attackingBloons);
+                    }
+                }
+                //checks if player killed the balloon
+                attackingBloons = chosen.CheckForRemoval(attackingBloons);
+                if (attackingBloons.Count == 0)
+                {
+                    break;
+                }
+
+                Console.Clear();
+            }
+
+            return (myMonkeys, attackingBloons);
+        }
+
+    
+//method that handles what bloons reached our base (speed = 0)
+    public List<Bloon> BloonAttackPhase(List<Bloon> attackingBloons)
+        {
+            //a list that has all the bloons that we need to remove
+            List<Bloon> removableBloons = new();
+            Console.WriteLine("All bloons walked a little closer");
+
+            //runs through all bloons and adds reduces their cooldown, then checks if its at the bsae, if so we add it to the removebloon list
+            for (int i = 0; i < attackingBloons.Count; i++)
+            {
+
+
+                Bloon bl = attackingBloons[i];
+                bl.ChangeCoolDown(-1);
+
+                //damages player
+                if (bl.GiveSpeed() <= 0)
+                {
+                    Console.WriteLine($"A bloon of type {bl.GetName()} hit u, u took {bl.Attack()} amount of damage");
+                    removableBloons.Add(bl);
+                }
+
+            }
+            return removableBloons;
+        }
     }
 }

@@ -58,7 +58,7 @@ namespace Shops
                 Console.WriteLine("Please enter a valid choice");
                 answer = Console.ReadLine() ?? "";
 
-                if (answer.ToLower() == "n")
+                if (answer.ToLower() == "e")
                 {
                     return default;
                 }

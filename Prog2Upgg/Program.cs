@@ -29,32 +29,22 @@ int health = 10;
 
 bool gameOn = true;
 
+
+
+
 //gameloop so game can be reset without restarting app
 while (gameOn)
 {
-
-
-    WriteColoredText(@"Welcome to Monkeys Console Attack", ConsoleColor.Red);
-    Console.WriteLine("How many waves will u take on?");
-
+    //displays basic info and creates the amount of rounds a player chose.
+    List<Round> rounds = StartGameText();
+    int currentRound = 0;
     //Creates rounds based on input
-    List<Round> rounds = Round.MakeRounds();
+
 
     //players towers
     List<Monkey> myMonkeys = new List<Monkey>(){
-        pilApa, kanon, isApa
+        pilApa, kanon, isApa, kanon, isApa
     };
-
-    //basic info on how to play the game
-    int currentRound = 0;
-    Console.Clear();
-    Console.WriteLine($"Your goal is to protect your base from getting destroyed, u start with {health} health");
-    WriteColoredText("Each wave, a set amount of balloons will spawn, if any of these balloons reach u, ur base take damage\n", ConsoleColor.Green);
-    Console.WriteLine("To defend yourself, u have monkeys, each monkey attacks in different ways, and u choose what balloon to attack");
-    WriteColoredText("DONT LET THE BALLOONS REACH YOU!!!", ConsoleColor.Red);
-
-    Console.WriteLine("\n press enter to start");
-    Console.ReadLine();
 
     //each round works here
     while (currentRound < rounds.Count)
@@ -77,71 +67,17 @@ while (gameOn)
             }
             Console.WriteLine("\n---------------------------------------------");
 
-            // for every monkey u got, u first get displayed the enemies, so u can choose who to attack
+            //keeps track of the enemy count before the attack phase
             int enemies = attackingBloons.Count;
-            foreach (Monkey m in myMonkeys)
-            {
-                //displays all bloons
-                foreach (Bloon blo in attackingBloons)
-                {
-                    blo.ShortDisplay();
 
-                }
-                Console.WriteLine("--------------------------------------------");
-                string response;
+            //enters attack phase where player attack the enemy bloons
+            var result = rounds[currentRound].attackPhase(myMonkeys, attackingBloons);
+            myMonkeys = result.Item1;
+            attackingBloons = result.Item2;
 
-                //Checks for input on who to attack
-                while (true)
-                {
-                    m.GetName(2);
-                    response = Console.ReadLine() ?? "";
 
-                    if (int.TryParse(response, out int x))
-                    {
-                        if (Convert.ToInt32(response) <= attackingBloons.Count && Convert.ToInt32(response) > 0)
-                        {
-                            break;
-                        }
-                    }
-                }
-                Bloon chosen = attackingBloons[Convert.ToInt32(response) - 1];
-                Bloon chosen2 = chosen;
 
-                //multi attack monkeys can only attack multiple if two or more enemies exist, here we check for that
-                if (attackingBloons.Count <= 1)
-                {
-                    m.Attack(chosen, chosen2);
-                    m.ApplyEffect(chosen);
-                }
-                else
-                {
-                    //if there is more than one, we check which the second target should be
-                    if (attackingBloons.ElementAtOrDefault(attackingBloons.IndexOf(chosen) + 1) != null)
-                    {
-                        chosen2 = attackingBloons[attackingBloons.IndexOf(chosen) + 1];
-                        m.Attack(chosen, chosen2);
-                        m.ApplyEffect(chosen);
-                        attackingBloons = chosen2.CheckForRemoval(attackingBloons);
-
-                    }
-                    else
-                    {
-                        chosen2 = attackingBloons[attackingBloons.IndexOf(chosen) - 1];
-                        m.Attack(chosen, chosen2);
-                        m.ApplyEffect(chosen);
-                        attackingBloons = chosen2.CheckForRemoval(attackingBloons);
-                    }
-                }
-                //checks if player killed the balloon
-                attackingBloons = attackingBloons = chosen.CheckForRemoval(attackingBloons);
-                if (attackingBloons.Count == 0)
-                {
-                    break;
-                }
-
-                Console.Clear();
-            }
-            //we see if number of enemies has decresed, and increase money per kileld bloon
+            //if the enemy count is different after than before round, then we give money to  playwr
             int amount = enemies - attackingBloons.Count;
             shop.moneyChange(amount * shop.moneyPerBloon);
 
@@ -152,24 +88,8 @@ while (gameOn)
             }
             //all balloons walk closer to the players base, if they reach, they do damage
             //we add each bloon to die to a list, so removing wont change the order
-            List<Bloon> removableBloons = new();
-            Console.WriteLine("All bloons walked a little closer");
-            for (int i = 0; i < attackingBloons.Count; i++)
-            {
-
-
-                Bloon bl = attackingBloons[i];
-                bl.ChangeCoolDown(-1);
-
-                //damages player
-                if (bl.GiveSpeed() <= 0)
-                {
-                    Console.WriteLine($"A bloon of type {bl.GetName()} hit u, u took {bl.Attack()} amount of damage");
-                    health -= bl.Attack();
-                    removableBloons.Add(bl);
-                }
-            }
-
+            List<Bloon> removableBloons = rounds[currentRound].BloonAttackPhase(attackingBloons);
+            
             Console.WriteLine("Press enter to continue");
             Console.ReadLine();
 
@@ -177,6 +97,7 @@ while (gameOn)
             foreach (Bloon b in removableBloons)
             {
                 attackingBloons.RemoveAt(attackingBloons.IndexOf(b));
+                health -= b.Attack();
             }
             removableBloons.Clear();
             //player dies
@@ -188,7 +109,7 @@ while (gameOn)
             }
 
 
-//loop that calls the shop everytime the player says yes, which allows player to buy more than 1 item
+            //loop that calls the shop everytime the player says yes, which allows player to buy more than 1 item
             while (true)
             {
                 Console.Clear();
@@ -196,9 +117,9 @@ while (gameOn)
                 string answer = Console.ReadLine() ?? "";
                 if (answer.ToLower() == "y")
                 {
-//returns an item from shop
+                    //returns an item from shop
                     var shopresult = shop.BuyItem();
-//checks what item was bought, if any, and applies it correctly
+                    //checks what item was bought, if any, and applies it correctly
                     if (shopresult != null)
                     {
                         if (shopresult is Monkey monkey)
@@ -210,7 +131,9 @@ while (gameOn)
                             upgrade.ApplyUpgrade(myMonkeys);
                         }
                     }
-                }else{
+                }
+                else
+                {
                     break;
                 }
             }
@@ -219,12 +142,12 @@ while (gameOn)
         Console.WriteLine("Round:   " + (currentRound + 1) + " Finished");
         Console.ReadLine();
         currentRound += 1;
-//death scnario
+        //death scnario
         if (health <= 0)
         {
             break;
         }
-//win scenario
+        //win scenario
         if (currentRound > rounds.Count - 1)
         {
             Console.WriteLine("YOU WON!!!");
@@ -236,7 +159,7 @@ while (gameOn)
     Console.ReadLine();
     Console.Clear();
 }
-
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------
 //turns written text into colored text
 void WriteColoredText(string message, ConsoleColor color)
 {
@@ -244,4 +167,28 @@ void WriteColoredText(string message, ConsoleColor color)
     Console.ForegroundColor = color;
     Console.WriteLine(message);
     Console.ResetColor();
+}
+
+
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+List<Round> StartGameText()
+{
+    Console.Clear();
+    WriteColoredText(@"Welcome to Monkeys Console Attack", ConsoleColor.Red);
+    Console.WriteLine("How many waves will u take on?");
+
+    List<Round> rounds = Round.MakeRounds();
+    //basic info on how to play the game
+
+    Console.Clear();
+    Console.WriteLine($"Your goal is to protect your base from getting destroyed, u start with {health} health");
+    WriteColoredText("Each wave, a set amount of balloons will spawn, if any of these balloons reach u, ur base take damage\n", ConsoleColor.Green);
+    Console.WriteLine("To defend yourself, u have monkeys, each monkey attacks in different ways, and u choose what balloon to attack");
+    WriteColoredText("DONT LET THE BALLOONS REACH YOU!!!", ConsoleColor.Red);
+
+    Console.WriteLine("\n press enter to start");
+    Console.ReadLine();
+
+    return rounds;
 }
